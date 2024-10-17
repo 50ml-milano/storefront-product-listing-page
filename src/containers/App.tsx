@@ -31,7 +31,7 @@ export const App: FunctionComponent = () => {
   const { screenSize } = useSensor();
   const translation = useTranslation();
   const { displayMode } = useStore().config;
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   const loadingLabel = translation.Loading.title;
 
@@ -65,7 +65,7 @@ export const App: FunctionComponent = () => {
               />
               <div
                 className={`ds-widgets_results flex flex-col items-center ${
-                  productsCtx.categoryName ? 'pt-16' : 'pt-28'
+                  productsCtx.categoryName ? 'pt-0' : 'pt-28'
                 } w-full h-full`}
               >
                 <ProductsHeader
@@ -73,8 +73,6 @@ export const App: FunctionComponent = () => {
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
                 />
-                <SelectedFilters />
-
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>
@@ -111,6 +109,11 @@ export const App: FunctionComponent = () => {
                               : ''
                           }`}
                         />
+                        <ProductsHeader
+                            facets={productsCtx.facets}
+                            totalCount={productsCtx.totalCount}
+                            screenSize={screenSize}
+                        />
                       </div>
                     )}
                 </div>
@@ -123,13 +126,14 @@ export const App: FunctionComponent = () => {
                 ) : (
                   <>
                     <div className="flex w-full h-full">
+                      {screenSize.mobile ? (
                       <ProductsHeader
-                        facets={productsCtx.facets}
-                        totalCount={productsCtx.totalCount}
-                        screenSize={screenSize}
-                      />
+                          facets={productsCtx.facets}
+                          totalCount={productsCtx.totalCount}
+                          screenSize={screenSize}
+                      />):''
+                      }
                     </div>
-                    <SelectedFilters />
                     <ProductsContainer
                       showFilters={showFilters && productsCtx.facets.length > 0}
                     />

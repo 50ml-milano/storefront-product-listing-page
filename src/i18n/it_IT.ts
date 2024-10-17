@@ -9,10 +9,11 @@ it.
 
 export const it_IT = {
   Filter: {
-    title: 'Filtri',
+    title: 'Filtra',
     showTitle: 'Mostra filtri',
     hideTitle: 'Nascondi filtri',
     clearAll: 'Cancella tutto',
+    apply: 'Applica',
   },
   InputButtonGroup: {
     title: 'Categorie',
@@ -33,7 +34,7 @@ export const it_IT = {
   },
   SortDropdown: {
     title: 'Ordina per',
-    option: 'Ordina per: {selectedOption}',
+    option: 'Ordina per',
     relevanceLabel: 'Più rilevante',
     positionLabel: 'Posizione',
   },
@@ -56,5 +57,8 @@ export const it_IT = {
   },
   SearchBar: {
     placeholder: 'Cerca...',
+  },
+  GoButton:{
+    text:"Vai"
   },
 };
