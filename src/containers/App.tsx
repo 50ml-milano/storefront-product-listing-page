@@ -31,7 +31,7 @@ export const App: FunctionComponent = () => {
   const { screenSize } = useSensor();
   const translation = useTranslation();
   const { displayMode } = useStore().config;
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   const loadingLabel = translation.Loading.title;
 
@@ -65,7 +65,7 @@ export const App: FunctionComponent = () => {
               />
               <div
                 className={`ds-widgets_results flex flex-col items-center ${
-                  productsCtx.categoryName ? 'pt-16' : 'pt-28'
+                  productsCtx.categoryName ? 'pt-0' : 'pt-28'
                 } w-full h-full`}
               >
                 <ProductsHeader
@@ -73,8 +73,6 @@ export const App: FunctionComponent = () => {
                   totalCount={productsCtx.totalCount}
                   screenSize={screenSize}
                 />
-                <SelectedFilters />
-
                 <ProductsContainer showFilters={showFilters} />
               </div>
             </div>
@@ -99,41 +97,47 @@ export const App: FunctionComponent = () => {
               <div className="ds-widgets_results flex flex-col items-center w-full h-full">
                 <div className="flex w-full h-full">
                   {!screenSize.mobile &&
-                    !productsCtx.loading &&
-                    productsCtx.facets.length > 0 && (
-                      <div className="flex w-full h-full">
-                        <FilterButton
-                          displayFilter={() => setShowFilters(true)}
-                          type="desktop"
-                          title={`${translation.Filter.showTitle}${
-                            searchCtx.filterCount > 0
-                              ? ` (${searchCtx.filterCount})`
-                              : ''
-                          }`}
-                        />
-                      </div>
-                    )}
+                      !productsCtx.loading &&
+                      productsCtx.facets.length > 0 && (
+                          <div className="flex w-full h-full">
+                            <FilterButton
+                                displayFilter={() => setShowFilters(true)}
+                                type="desktop"
+                                title={`${translation.Filter.showTitle}${
+                                    searchCtx.filterCount > 0
+                                        ? ` (${searchCtx.filterCount})`
+                                        : ''
+                                }`}
+                            />
+                            <ProductsHeader
+                                facets={productsCtx.facets}
+                                totalCount={productsCtx.totalCount}
+                                screenSize={screenSize}
+                            />
+                          </div>
+                      )}
+                </div>
+                <div className="flex w-full h-full">
+                  {screenSize.mobile ? (
+                      <ProductsHeader
+                          facets={productsCtx.facets}
+                          totalCount={productsCtx.totalCount}
+                          screenSize={screenSize}
+                      />) : ''
+                  }
                 </div>
                 {productsCtx.loading ? (
-                  screenSize.mobile ? (
-                    <Loading label={loadingLabel} />
-                  ) : (
-                    <Shimmer />
-                  )
+                    screenSize.mobile ? (
+                        <Loading label={loadingLabel}/>
+                    ) : (
+                        <Shimmer/>
+                    )
                 ) : (
-                  <>
-                    <div className="flex w-full h-full">
-                      <ProductsHeader
-                        facets={productsCtx.facets}
-                        totalCount={productsCtx.totalCount}
-                        screenSize={screenSize}
+                    <>
+                      <ProductsContainer
+                          showFilters={showFilters && productsCtx.facets.length > 0}
                       />
-                    </div>
-                    <SelectedFilters />
-                    <ProductsContainer
-                      showFilters={showFilters && productsCtx.facets.length > 0}
-                    />
-                  </>
+                    </>
                 )}
               </div>
             </div>

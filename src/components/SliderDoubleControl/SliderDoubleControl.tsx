@@ -75,7 +75,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
     ) => {
       const [from, to] = getParsed(fromInput, toInput);
 
-      fillSlider(fromInput, toInput, '#C6C6C6', '#383838', controlSlider);
+      fillSlider(fromInput, toInput, '#C6C6C6', '#904745', controlSlider);
       if (from > to) {
         fromSlider.value = to;
         fromInput.value = to;
@@ -91,7 +91,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       controlSlider: any
     ) => {
       const [from, to] = getParsed(fromInput, toInput);
-      fillSlider(fromInput, toInput, '#C6C6C6', '#383838', controlSlider);
+      fillSlider(fromInput, toInput, '#C6C6C6', '#904745', controlSlider);
       if (from <= to) {
         toSlider.value = to;
         toInput.value = to;
@@ -106,7 +106,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       fromInput: any
     ) => {
       const [from, to] = getParsed(fromSlider, toSlider);
-      fillSlider(fromSlider, toSlider, '#C6C6C6', '#383838', toSlider);
+      fillSlider(fromSlider, toSlider, '#C6C6C6', '#904745', toSlider);
 
       if (from > to) {
         setMinVal(to);
@@ -119,7 +119,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
 
     const controlToSlider = (fromSlider: any, toSlider: any, toInput: any) => {
       const [from, to] = getParsed(fromSlider, toSlider);
-      fillSlider(fromSlider, toSlider, '#C6C6C6', '#383838', toSlider);
+      fillSlider(fromSlider, toSlider, '#C6C6C6', '#904745', toSlider);
       if (from <= to) {
         toSlider.value = to;
         toInput.value = to;
@@ -169,7 +169,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       `#${toInputId}`
     )! as HTMLInputElement;
 
-    fillSlider(fromSlider, toSlider, '#C6C6C6', '#383838', toSlider);
+    fillSlider(fromSlider, toSlider, '#C6C6C6', '#904745', toSlider);
 
     fromSlider.oninput = () =>
       controlFromSlider(fromSlider, toSlider, fromInput);
@@ -205,7 +205,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       <div class="ds-sdk-slider range_container">
         <div class="sliders_control">
           <input
-            className="ds-sdk-slider__from fromSlider"
+            className="ds-sdk-slider__from fromSlider h-[6px]"
             id={fromSliderId}
             type="range"
             value={minVal}
@@ -227,7 +227,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
             }}
           />
           <input
-            className="ds-sdk-slider__to toSlider"
+            className="ds-sdk-slider__to toSlider h-[6px]"
             id={toSliderId}
             type="range"
             value={maxVal}
@@ -303,7 +303,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
         </div>
       </div>
 
-      <div className={`price-range-display__${filterData.attribute} pb-3`}>
+      <div className={`price-range-display__${filterData.attribute} pb-[1.5rem]`}>
         <span className="ml-sm block-display text-sm font-light text-gray-700">
           Between{' '}
           <span className="min-price text-gray-900 font-semibold">
@@ -315,7 +315,6 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
           </span>
         </span>
       </div>
-      <div className="ds-sdk-input__border border-t mt-md border-gray-200" />
     </div>
   );
 };

@@ -13,6 +13,7 @@ export const en_GB = {
     showTitle: 'Show filters',
     hideTitle: 'Hide filters',
     clearAll: 'Clear all',
+    apply: 'Apply',
   },
   InputButtonGroup: {
     title: 'Categories',
@@ -33,7 +34,7 @@ export const en_GB = {
   },
   SortDropdown: {
     title: 'Sort by',
-    option: 'Sort by: {selectedOption}',
+    option: 'Sort by',
     relevanceLabel: 'Most Relevant',
     positionLabel: 'Position',
   },
