@@ -13,6 +13,7 @@ export const fr_FR = {
     showTitle: 'Afficher les filtres',
     hideTitle: 'Masquer les filtres',
     clearAll: 'Tout effacer',
+    apply: 'Appliquer',
   },
   InputButtonGroup: {
     title: 'Catégories',
@@ -36,6 +37,16 @@ export const fr_FR = {
     option: 'Trier par ',
     relevanceLabel: 'Pertinence',
     positionLabel: 'Position',
+    sortAttributeASC: '{label}: Du plus bas au plus haut',
+    sortAttributeDESC: '{label}: Du plus haut au plus bas',
+    sortASC: 'Prix ​​: du plus bas au plus élevé',
+    sortDESC: 'Prix ​​: du plus élevé au plus bas',
+    productName: 'Nom du produit',
+    productInStock: 'En stock',
+    productLowStock: 'Faible stock',
+    priceLabelAsc: 'Prix croissant',
+    priceLabelDesc:'Prix descendant',
+    createdAtLabel:'Le plus récent en premier',
   },
   CategoryFilters: {
     results: 'résultats trouvés pour {phrase}',
@@ -57,4 +68,16 @@ export const fr_FR = {
   SearchBar: {
     placeholder: 'Rechercher…',
   },
+  GoButton:{
+    text:"Aller"
+  },
+  ShowMoreButton:{
+    title:"Afficher plus"
+  },
+  PreviousButton:{
+    title:"Afficher la page précédente"
+  },
+  ProductsCounter:{
+    title:"{current} de {total} produits"
+  }
 };
