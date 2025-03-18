@@ -85,10 +85,10 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
     <>
       <div
         ref={sortOptionMenu}
-        class={`ds-sdk-sort-dropdown relative inline-block text-left bg-gray-100 rounded-md z-9 ${!isMobile ? 'max-h-[2rem]' : 'h-[32px]'}`}
+        class={`ds-sdk-sort-dropdown relative inline-block text-left rounded-md z-9 flex-1 w-[calc(50%-1.25rem)] max-w-[175px] 'h-[40px]'`}
       >
         <button
-          className={`group flex justify-center items-center font-normal text-[0.875rem] text-white font-['FuturaBT-Light'] ${isDropdownOpen ? 'rounded-t-md' : 'rounded-md'} hover:cursor-pointer border-none bg-[#904745] hover:border-none  focus:border-none  active:border-none active:shadow-none h-auto w-full pr-[1.8rem] pl-[2rem] ${!isMobile ? 'py-[0.45rem] whitespace-nowrap' : 'py-[0.45rem]'}`}
+          className={`group flex justify-between items-center font-normal text-[0.875rem] text-white font-['FuturaBT-Medium'] ${isDropdownOpen ? 'rounded-t-[15px]' : 'rounded-[15px]'} hover:cursor-pointer border-none bg-[#904745] hover:border-none  focus:border-none  active:border-none active:shadow-none h-[40px] w-full px-4 ${!isMobile ? 'py-[0.45rem] whitespace-nowrap' : 'py-[0.25rem]'}`}
           ref={sortOptionButton}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onFocus={() => setIsFocus(false)}
@@ -96,7 +96,7 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
         >
           {Label}
           <Chevron
-            className={`flex-shrink-0 m-auto ml-sm h-md w-md stroke-1 stroke-white ${
+            className={`flex-shrink-0 md:ml-sm h-md w-md stroke-1 stroke-white ${
               isDropdownOpen ? 'rotate-180' : ''
             }`}
           />

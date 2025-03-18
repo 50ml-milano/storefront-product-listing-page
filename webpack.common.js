@@ -29,6 +29,7 @@ const commonConfig = {
     libraryTarget: 'module',
   },
   watchOptions: {
+    poll: 1000,
     aggregateTimeout: 100, // delay before reloading
   },
   devServer: {
