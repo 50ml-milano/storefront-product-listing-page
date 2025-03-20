@@ -93,7 +93,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
         >
           {screenSize.mobile
               ? totalCount > 0 && (
-              <div className="pb-[0.8rem]">
+              <div className="pb-[0.8rem] flex-1 max-w-[175px]">
                 <FilterButton
                     displayFilter={() => setShowMobileFacet(!showMobileFacet)}
                     type="mobile"

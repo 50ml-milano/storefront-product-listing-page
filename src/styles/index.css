@@ -686,6 +686,9 @@ video {
   .h-\[38px\] {
     height: 38px;
   }
+  .h-\[40px\] {
+    height: 40px;
+  }
   .h-\[6px\] {
     height: 6px;
   }
@@ -707,14 +710,14 @@ video {
   .max-h-\[250px\] {
     max-height: 250px;
   }
-  .max-h-\[2rem\] {
-    max-height: 2rem;
-  }
   .max-h-\[45rem\] {
     max-height: 45rem;
   }
   .min-h-\[32px\] {
     min-height: 32px;
+  }
+  .min-h-\[58px\] {
+    min-height: 58px;
   }
   .w-1\/3 {
     width: 33.333333%;
@@ -752,6 +755,9 @@ video {
   .w-\[9\.7rem\] {
     width: 9.7rem;
   }
+  .w-\[calc\(50\%-1\.25rem\)\] {
+    width: calc(50% - 1.25rem);
+  }
   .w-fit {
     width: -moz-fit-content;
     width: fit-content;
@@ -773,6 +779,9 @@ video {
   }
   .max-w-5xl {
     max-width: 64rem;
+  }
+  .max-w-\[175px\] {
+    max-width: 175px;
   }
   .max-w-\[200px\] {
     max-width: 200px;
@@ -947,9 +956,9 @@ video {
     border-bottom-right-radius: 0.375rem;
     border-bottom-left-radius: 0.375rem;
   }
-  .rounded-t-md {
-    border-top-left-radius: 0.375rem;
-    border-top-right-radius: 0.375rem;
+  .rounded-t-\[15px\] {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
   }
   .border {
     border-width: 1px;
@@ -1081,6 +1090,9 @@ video {
   .p-\[0\.63rem\] {
     padding: 0.63rem;
   }
+  .p-md {
+    padding: var(--spacing-md);
+  }
   .p-sm {
     padding: var(--spacing-sm);
   }
@@ -1103,6 +1115,10 @@ video {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
   }
+  .px-\[15px\] {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
   .px-md {
     padding-left: var(--spacing-md);
     padding-right: var(--spacing-md);
@@ -1122,6 +1138,10 @@ video {
   .py-2 {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+  }
+  .py-\[0\.25rem\] {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
   .py-\[0\.45rem\] {
     padding-top: 0.45rem;
@@ -1151,9 +1171,6 @@ video {
   .pb-\[0\.44rem\] {
     padding-bottom: 0.44rem;
   }
-  .pb-\[0\.85rem\] {
-    padding-bottom: 0.85rem;
-  }
   .pb-\[0\.8rem\] {
     padding-bottom: 0.8rem;
   }
@@ -1178,9 +1195,6 @@ video {
   .pl-8 {
     padding-left: 2rem;
   }
-  .pl-\[2rem\] {
-    padding-left: 2rem;
-  }
   .pr-2 {
     padding-right: 0.5rem;
   }
@@ -1192,9 +1206,6 @@ video {
   }
   .pr-\[0\.5rem\] {
     padding-right: 0.5rem;
-  }
-  .pr-\[1\.8rem\] {
-    padding-right: 1.8rem;
   }
   .pr-lg {
     padding-right: var(--spacing-lg);
@@ -1735,6 +1746,10 @@ video {
 @media (min-width: 768px) {
   .md\:ml-6 {
     margin-left: 1.5rem;
+  }
+
+  .md\:ml-sm {
+    margin-left: var(--spacing-sm);
   }
 
   .md\:flex {
