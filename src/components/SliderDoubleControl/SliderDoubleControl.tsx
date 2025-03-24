@@ -106,7 +106,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       fromInput: any
     ) => {
       const [from, to] = getParsed(fromSlider, toSlider);
-      fillSlider(fromSlider, toSlider, '#C6C6C6', '#904745', toSlider);
+      fillSlider(fromSlider, toSlider, 'rgba(198,198,198,0)', '#904745', toSlider);
 
       if (from > to) {
         setMinVal(to);
@@ -169,7 +169,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       `#${toInputId}`
     )! as HTMLInputElement;
 
-    fillSlider(fromSlider, toSlider, '#C6C6C6', '#904745', toSlider);
+    fillSlider(fromSlider, toSlider, 'rgba(198,198,198,0)', '#904745', toSlider);
 
     fromSlider.oninput = () =>
       controlFromSlider(fromSlider, toSlider, fromInput);
