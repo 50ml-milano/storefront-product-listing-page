@@ -1583,6 +1583,11 @@ video {
   border-style: none;
 }
 
+.hover\:border-\[\#904547\]:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(144 69 71 / var(--tw-border-opacity));
+}
+
 .hover\:border-\[\#f55d66\]:hover {
   --tw-border-opacity: 1;
   border-color: rgb(245 93 102 / var(--tw-border-opacity));
