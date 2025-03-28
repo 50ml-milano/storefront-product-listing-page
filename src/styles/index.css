@@ -578,6 +578,9 @@ video {
   .mb-\[0\.5rem\] {
     margin-bottom: 0.5rem;
   }
+  .mb-\[15px\] {
+    margin-bottom: 15px;
+  }
   .mb-\[1px\] {
     margin-bottom: 1px;
   }
@@ -746,14 +749,14 @@ video {
   .w-\[24px\] {
     width: 24px;
   }
+  .w-\[28\%\] {
+    width: 28%;
+  }
   .w-\[30px\] {
     width: 30px;
   }
   .w-\[9\.45rem\] {
     width: 9.45rem;
-  }
-  .w-\[9\.7rem\] {
-    width: 9.7rem;
   }
   .w-\[calc\(50\%-1\.25rem\)\] {
     width: calc(50% - 1.25rem);
@@ -1096,8 +1099,8 @@ video {
   .p-\[0\.63rem\] {
     padding: 0.63rem;
   }
-  .p-md {
-    padding: var(--spacing-md);
+  .p-\[11px\] {
+    padding: 11px;
   }
   .p-sm {
     padding: var(--spacing-sm);
@@ -1112,6 +1115,10 @@ video {
   .px-2 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+  }
+  .px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
   .px-4 {
     padding-left: 1rem;
@@ -1213,9 +1220,6 @@ video {
   .pr-\[0\.5rem\] {
     padding-right: 0.5rem;
   }
-  .pr-lg {
-    padding-right: var(--spacing-lg);
-  }
   .pt-0 {
     padding-top: 0px;
   }
@@ -1279,6 +1283,9 @@ video {
   }
   .text-\[12px\] {
     font-size: 12px;
+  }
+  .text-\[15px\] {
+    font-size: 15px;
   }
   .text-\[1rem\] {
     font-size: 1rem;
@@ -1782,6 +1789,11 @@ video {
 
   .md\:justify-between {
     justify-content: space-between;
+  }
+
+  .md\:gap-x-2 {
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
   }
 }
 

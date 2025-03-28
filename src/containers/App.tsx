@@ -106,7 +106,7 @@ console.log('loading', productsCtx.loading);
               <div className="ds-widgets_results flex flex-col items-center w-full h-full">
                 <div className="flex w-full h-full">
                   {!screenSize.mobile && productsCtx.facets.length > 0 && (
-                          <div className={`flex w-full h-full ${!showFilters ?'border-b border-black pb-[1rem]':''}`}>
+                          <div className={`flex w-full h-full md:gap-x-2 ${!showFilters ?'border-b border-black pb-[1rem]':''}`}>
                             <FilterButton
                                 displayFilter={() => setShowFilters(true)}
                                 type="desktop"
