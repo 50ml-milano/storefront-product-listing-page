@@ -44,8 +44,9 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
             : `radio-group-${attribute}`
         }
         type={type}
-        className={screenSize.mobile?"ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px] before:left-[2rem]":
-            "ds-sdk-labelled-input__input focus:ring-0 h-md w-md text-[0.75rem] border-0 cursor-pointer accent-[#904745] min-w-[16px] before:left-[10px]"}
+        className={`ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px] !bg-transparent !border-transparent focus:shadow-none ring-transparent ${
+          screenSize.mobile ? "before:left-[2rem]" : "text-[0.75rem] before:left-[10px]"}`
+        }
         checked={checked}
         aria-checked={checked}
         onInput={onChange}
