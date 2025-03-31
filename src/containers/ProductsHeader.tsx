@@ -87,7 +87,7 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   };
   return (
       <div
-          className={`flex flex-col lg:max-w-full ml-auto w-full h-full ${isFiltersOpen ? 'border-b border-black pb-[1rem] max-w-full' : ''} ${!isFiltersOpen && screenSize.mobile ? 'max-w-full' : 'max-w-[calc(100%-9.7rem)]'}`}>
+          className={`flex flex-col lg:max-w-full ml-auto w-full h-full ${isFiltersOpen ? 'pb-[1rem] max-w-full' : ''} ${!isFiltersOpen && screenSize.mobile ? 'max-w-full' : 'max-w-[calc(100%-9.7rem)]'}`}>
         {screenSize.mobile && storeCtx.config.displaySearchBox && (
             <SearchBar
                 phrase={searchCtx.phrase}
