@@ -52,9 +52,9 @@ export const FilterButton: FunctionComponent<FilterButtonProps> = ({
       </button>
     </div>
   ) : (
-    <div className="ds-sdk-filter-button-desktop w-[9.7rem]">
+    <div className={`ds-sdk-filter-button-desktop pr-2 ${isFiltersOpen ? '' : 'w-full md:max-w-[12rem] lg:max-w-[13rem]'}`}>
       <button
-          className={`flex items-center ${isFiltersOpen ? 'bg-black' : 'bg-[#904745]'} text-white ring-black ring-opacity-5 py-[0.45rem] rounded-[15px] p-md text-[0.875rem] font-['FuturaBT-Medium'] h-[40px]`}
+          className={`flex items-center ${isFiltersOpen ? 'bg-black' : 'bg-[#904745]'} text-white ring-black ring-opacity-5 py-[0.45rem] px-3 rounded-[15px] text-[0.875rem] font-['FuturaBT-Medium'] h-[40px]`}
         onClick={() => handleClick()}
         ref={mobileFilterButtonRef}
       >

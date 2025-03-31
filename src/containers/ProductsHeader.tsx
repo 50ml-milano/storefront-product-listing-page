@@ -87,7 +87,18 @@ export const ProductsHeader: FunctionComponent<Props> = ({
   };
   return (
       <div
-          className={`flex flex-col lg:max-w-full ml-auto w-full h-full ${isFiltersOpen ? 'border-b border-black pb-[1rem] max-w-full' : ''} ${!isFiltersOpen && screenSize.mobile ? 'max-w-full' : 'max-w-[calc(100%-9.7rem)]'}`}>
+          className={`flex flex-col lg:max-w-full ml-auto w-full h-full ${isFiltersOpen ? 'pb-[1rem] max-w-full' : ''} ${!isFiltersOpen && screenSize.mobile ? 'max-w-full' : 'max-w-[calc(100%-9.7rem)]'}`}>
+        {screenSize.mobile && storeCtx.config.displaySearchBox && (
+            <SearchBar
+                phrase={searchCtx.phrase}
+                onKeyPress={(e: any) => {
+                  if (e.key === 'Enter') {
+                    searchCtx.setPhrase(e?.target?.value);
+                  }
+                }}
+                onClear={() => searchCtx.setPhrase('')}
+                placeholder={translation.SearchBar.placeholder}
+            />)}
         <div
             className={`flex gap-x-2.5 mb-[1px] ${screenSize.mobile ? 'justify-between flex-wrap pb-[0.44rem]' : 'justify-between'} ${(screenSize.mobile && showMobileFacet) ? 'border-b border-gray-200' : ''}`}
         >
