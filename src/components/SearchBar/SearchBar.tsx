@@ -23,7 +23,7 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
   placeholder,
 }) => {
   return (
-    <div className="relative ds-sdk-search-bar">
+    <div className="relative ds-sdk-search-bar w-full min-w-[160px] md:max-w-[271px] lg:max-w-[389px]">
       <input
         id="search"
         type="text"

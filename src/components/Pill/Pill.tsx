@@ -33,9 +33,9 @@ export const Pill: FunctionComponent<PillProps> = ({
   return type === 'transparent' ? (
     <div
       key={label}
-      className="text-left ml-[0.25rem] p-[0.27rem] py-[0.5rem] pr-[0.5rem] first:ml-0 hover:bg-[#904547] hover:text-white hover:opacity-100 bg-white border border-black rounded-[15px] opacity-50 text-black text-[1rem] font-normal font-['FuturaBT-Medium'] whitespace-nowrap"
+      className="group h-[40px] text-left ml-[0.25rem] p-[0.27rem] py-[0.5rem] pr-[0.5rem] first:ml-0 hover:bg-[#904547] hover:text-white bg-white border border-black rounded-[15px] text-black text-[1rem] font-normal font-['FuturaBT-Medium'] whitespace-nowrap"
     >
-      <span className="ds-sdk-pill__label font-normal">{label}</span>
+      <span className="ds-sdk-pill__label font-normal opacity-50 group-hover:opacity-100">{label}</span>
       <span className="ds-sdk-pill__cta" onClick={onClick}>
         {CTA}
       </span>
