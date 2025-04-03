@@ -264,7 +264,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               className="!text-primary"
           >
             <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full border-b-[0]">
-              <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden">
+              <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden aspect-[278/371] md:aspect-[395/527]">
                 {productImageArray.length ? (
                     <ImageCarousel
                         images={

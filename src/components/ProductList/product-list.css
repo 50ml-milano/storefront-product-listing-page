@@ -17,6 +17,21 @@
     background-color: #ffffff;
 }
 
+.livesearch-plp .ds-widgets .image-wrapper-desktop img {
+    font-size: 0;
+    position: relative;
+}
+
+.livesearch-plp .ds-widgets .image-wrapper-desktop img:after {
+    position: absolute;
+    content: '';
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #ffffff;
+}
+
 body {
     background-color: #ffffff;
 }
