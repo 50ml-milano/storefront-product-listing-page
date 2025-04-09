@@ -656,6 +656,9 @@ video {
   .hidden {
     display: none;
   }
+  .aspect-\[278\/371\] {
+    aspect-ratio: 278/371;
+  }
   .aspect-auto {
     aspect-ratio: auto;
   }
@@ -1774,6 +1777,10 @@ video {
 
   .md\:flex {
     display: flex;
+  }
+
+  .md\:aspect-\[395\/527\] {
+    aspect-ratio: 395/527;
   }
 
   .md\:max-w-\[12rem\] {
