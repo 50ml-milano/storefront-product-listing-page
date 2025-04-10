@@ -30,7 +30,6 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
   products,
   numberOfColumns,
   showFilters,
-  prevProducts
 }) => {
   const productsCtx = useProducts();
   const {
@@ -56,7 +55,6 @@ export const ProductList: FunctionComponent<ProductListProps> = ({
     refreshCart && refreshCart();
   }, [itemAdded]);
 
-  console.log('******prevProducts',prevProducts);
   return (
     <div
       className={classNames(
