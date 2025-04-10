@@ -135,12 +135,9 @@ const ProductsContext = createContext<{
 });
 
 const ProductsContextProvider = ({ children }: WithChildrenProps) => {
-  console.log('********************ProductsContextProvider LOG START********************************');
 
   const urlValue = getValueFromUrl('p');
-  console.log('ProductsContextProvider urlValue',urlValue);
   const pageDefault = urlValue ? Number(urlValue) : 1;
-  console.log('ProductsContextProvider pageDefault',pageDefault);
 
   const searchCtx = useSearch();
   const storeCtx = useStore();
@@ -162,12 +159,9 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const [pageLoading, setPageLoading] = useState(true);
   const [items, setItems] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(pageDefault);
-  console.log('ProductsContextProvider currentPage',currentPage);
 
   const [loadNextPage, setLoadNextPage] = useState<number>(pageDefault);
   const [loadPrevPage, setLoadPrevPage] = useState<number>(pageDefault);
-  console.log('ProductsContextProvider loadNextPage',loadNextPage);
-  console.log('ProductsContextProvider loadPrevPage',loadPrevPage);
   const [prevItems, setPrevItems] = useState<Product[]>([]);
   const [pageSize, setPageSize] = useState<number>(pageSizeDefault);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -275,15 +269,11 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   const nextPage: MutableRef<number> = useRef(currentPage + 1);
   const prevPage: MutableRef<number> = useRef(currentPage - 1);
   const prevFiltersCount: MutableRef<number> = useRef(searchCtx.filters.length);
-  // console.log('prevProds.current',prevProds.current);
-  console.log('ProductsContextProvider items',items);
-  console.log('ProductsContextProvider prevFiltersCount',prevFiltersCount.current);
   // productsCtx.items= productsCtx.items.concat(prevProds.current);
   // productsCtx.items= productsCtx.items.filter((obj, index, self) =>index ===
   //     self.findIndex((o) => o.product.sku === obj.product.sku));
   // prevProds.current=items;
   const searchProducts = async (pagination?: boolean, currPage?: number) => {
-    console.log('********************SEARCHPRODUCTS LOG START********************************');
 
     try {
       if (pagination) {
@@ -298,7 +288,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
 
         handleCategorySearch(categoryPath, filters);
         if (currPage) {
-          console.log('SEARCHPRODUCTS variables.currentPage',currPage);
           variables.currentPage = currPage;
         }
         const data = await getProductSearch({
@@ -308,9 +297,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           filter: filters,
           categorySearch: !!categoryPath,
         });
-        console.log('SEARCHPRODUCTS pagination', pagination);
-        console.log('SEARCHPRODUCTS filters', searchCtx.filters);
-        console.log('SEARCHPRODUCTS !!curr', currentPage);
         setLoadNextPage(currentPage + 1);
         setLoadPrevPage(currentPage - 1);
         prevFiltersCount.current=searchCtx.filters.length;
@@ -323,7 +309,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
             setPrevItems(prevProds.current);
             prevProds.current = prevProds.current.concat(data?.productSearch?.items || []);
           }
-          console.log(currentPage, nextPage.current, prevPage.current);
           setItems(prevProds.current);
           nextPage.current = currentPage >= nextPage.current ? currentPage + 1 : nextPage.current;
           prevPage.current = currentPage <= prevPage.current ? currentPage - 1 : prevPage.current;
@@ -338,8 +323,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           setLoadPrevPage(prevPage.current);
 
         }
-        console.log('SEARCHPRODUCTS nextPage', nextPage.current);
-        console.log('SEARCHPRODUCTS prevPage', prevPage.current);
 
         setFacets(data?.productSearch?.facets || []);
         setTotalCount(data?.productSearch?.total_count || 0);
@@ -356,7 +339,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       enableScroll();
       setLoading(false);
       setPageLoading(false);
-      console.log('********************SEARCHPRODUCTS LOG END********************************');
     } catch (error) {
       setLoading(false);
       setPageLoading(false);
@@ -408,7 +390,6 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     totalPages: number | undefined
   ) => {
     if (totalCount && totalCount > 0 && totalPages === 1) {
-      console.log('paginationCheck');
       setCurrentPage(1);
       handleUrlPagination(1);
     }
@@ -469,49 +450,27 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
   };
 
   useEffect(() => {
-    console.log('********************searchCtx.filters LOG START********************************');
     if (attributeMetadataCtx.filterableInSearch) {
-      console.log('searchCtx.filters prevFiltersCount', prevFiltersCount.current);
-      console.log('searchCtx.filters.length', searchCtx.filters.length);
       if (searchCtx.filters.length == 0) {//Default page load
-        console.log('!Default page load no filters searchCtx.filters 1');
-        console.log('!Default page load items length', items.length);
         searchProducts();
         // searchProducts(false,1);
         // setCurrentPage(1);
         // handleUrlPagination(1);
       }
       if (searchCtx.filters.length == 0 && prevFiltersCount.current != 0) {//Clear filters
-        console.log('!Clear filters searchCtx.filters 2');
-        console.log('!Clear filters items length', items.length);
-
-        console.log('searchCtx.filters 2',searchCtx.filters);
-        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
-        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
         setCurrentPage(1);
         handleUrlPagination(1);
         searchProducts(false, 1);
       }
       if (searchCtx.filters.length != 0 && items.length != 0) {//Enabled Filters
-        console.log('!Enabled Filters searchCtx.filters 3');
-        console.log('!Enabled Filters items length', items.length);
-        console.log('searchCtx.filters 3', searchCtx.filters);
-        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
-        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
         setCurrentPage(1);
         handleUrlPagination(1);
         searchProducts(false, 1);
       }
       if (searchCtx.filters.length != 0 && items.length == 0) {//Enabled Filters from url params
-        console.log('!Enabled Filters from url params searchCtx.filters 4');
-        console.log('!Enabled Filters from url params items length', items.length);
-        console.log('searchCtx.filters 4', searchCtx.filters);
-        console.log('searchCtx.filters searchCtx.filters.length', searchCtx.filters.length);
-        console.log('searchCtx.filters prevFiltersCount.current', prevFiltersCount.current);
         searchProducts();
       }
       // searchProducts(false,1);
-      console.log('********************searchCtx.filters LOG END********************************');
 
     }
   }, [searchCtx.filters]);
@@ -521,26 +480,21 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       const filtersFromUrl = getFiltersFromUrl(
         attributeMetadataCtx.filterableInSearch
       );
-      console.log('attributeMetadataCtx.filterableInSearch');
-
       searchCtx.setFilters(filtersFromUrl);
     }
   }, [attributeMetadataCtx.filterableInSearch]);
 
   useEffect(() => {
     if (!loading) {
-      console.log('searchCtx.phrase, searchCtx.sort, pageSize');
       searchProducts();
     }
   }, [searchCtx.phrase, searchCtx.sort, pageSize]);
 
   useEffect(() => {
     if (!loading) {
-      console.log('page change');
       searchProducts(true);
     }
   }, [currentPage]);
-  console.log('********************ProductsContextProvider LOG END********************************');
 
   return (
     <ProductsContext.Provider value={context}>
