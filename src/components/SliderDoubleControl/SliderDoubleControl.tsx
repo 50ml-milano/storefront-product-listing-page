@@ -178,7 +178,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
       controlFromInput(fromSlider, fromInput, toInput, toSlider);
     toInput.oninput = () =>
       controlToInput(toSlider, fromInput, toInput, toSlider);
-  }, [minVal, maxVal]);
+  }, [minVal, maxVal, min, max]);
 
   const formatLabel = (price: number) => {
     const currencyRate = productsCtx.currencyRate
