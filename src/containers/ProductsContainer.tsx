@@ -55,9 +55,6 @@ export const ProductsContainer: FunctionComponent<Props> = ({
   }, []);
 
   const productCardArray = Array.from({ length: 8 });
-  console.log('!!!products',items);
-  console.log('!!!prevProds',productsCtx.prevItems);
-  console.log('!!!loading',loading);
   const goToPage = (page: number | string) => {
     if (typeof page === 'number') {
       setCurrentPage(page);
