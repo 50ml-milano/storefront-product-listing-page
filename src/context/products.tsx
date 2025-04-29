@@ -281,7 +281,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       } else {
         setLoading(true);
       }
-      disableScroll();
+      // disableScroll();
       // moveToTop();
       if (checkMinQueryLength()) {
         const filters = [...variables.filter];
