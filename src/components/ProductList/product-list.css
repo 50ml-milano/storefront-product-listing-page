@@ -37,17 +37,19 @@ body {
 }
 
 
-[type=checkbox] {
+.livesearch-plp [type=checkbox] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
 
-[type=checkbox]:checked:focus, [type=checkbox]:checked:hover, [type=checkbox]:indeterminate {
+.livesearch-plp [type=checkbox]:checked:focus,
+.livesearch-plp [type=checkbox]:checked:hover,
+.livesearch-plp [type=checkbox]:indeterminate {
     background: none;
 }
 
-[type=checkbox]:checked {
+.livesearch-plp [type=checkbox]:checked {
     background: none;
 }
 
