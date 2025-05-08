@@ -264,7 +264,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               className="!text-primary"
           >
             <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full border-b-[0]">
-              <div className="ds-sdk-product-item__image relative w-full h-full rounded-md overflow-hidden aspect-[278/371] md:aspect-[395/527]">
+              <div className="ds-sdk-product-item__image relative w-full h-auto rounded-md overflow-hidden aspect-[278/371] md:aspect-[395/527]">
                 {productImageArray.length ? (
                     <ImageCarousel
                         images={
@@ -282,7 +282,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                     />
                 )}
               </div>
-              <div className="flex flex-row justify-center">
+              <div className="flex flex-row justify-center flex-1">
                 <div className="flex flex-col">
                   <div class="leading-none text-[0.88rem] uppercase text-black font-['FuturaBT-Light'] text-center pt-[3px]">{getProductAttribute('manufacturer')}</div>
                   <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1.188rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
