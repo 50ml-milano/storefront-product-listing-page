@@ -1244,6 +1244,9 @@ video {
   .pt-\[15px\] {
     padding-top: 15px;
   }
+  .pt-\[3px\] {
+    padding-top: 3px;
+  }
   .pt-md {
     padding-top: var(--spacing-md);
   }

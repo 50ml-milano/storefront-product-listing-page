@@ -284,7 +284,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
               <div className="flex flex-row justify-center">
                 <div className="flex flex-col">
-                  <div class="leading-none text-[0.88rem] uppercase text-black font-['FuturaBT-Light'] text-center">{getProductAttribute('manufacturer')}</div>
+                  <div class="leading-none text-[0.88rem] uppercase text-black font-['FuturaBT-Light'] text-center pt-[3px]">{getProductAttribute('manufacturer')}</div>
                   <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1.188rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
