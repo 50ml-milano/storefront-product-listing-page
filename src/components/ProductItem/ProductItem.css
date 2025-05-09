@@ -51,7 +51,8 @@
 }
 
 .livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item > div:last-child {
-  height: auto;
+  overflow: hidden;
+  height: 100%;
 }
 .livesearch-plp .ds-widgets .ds-sdk-product-list__grid .ds-sdk-product-item:hover {
   border-style: solid;
