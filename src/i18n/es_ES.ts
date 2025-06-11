@@ -82,5 +82,8 @@ export const es_ES = {
   },
   ProductsCounter:{
       title:"{current} de {total} productos"
+  },
+  ProductItem:{
+    outOfStock:"No disponible"
   }
 };
