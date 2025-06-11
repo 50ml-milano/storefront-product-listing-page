@@ -215,6 +215,7 @@ export interface Product {
     new_to_date: null | string;
     created_at: null | string;
     updated_at: null | string;
+    inStock: null | string;
     price: {
       final: ProductViewPrice;
       regular: ProductViewPrice;

@@ -288,6 +288,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                   <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1.188rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
+                  {productView.inStock !== null && !productView.inStock && (
+                      <div className="ds-sdk-product-item__product-out-of-stock absolute top-0 left-0 w-full h-full block z-10 bg-[rgba(251,_247,_244,_0.6)]">
+                        <div className="table w-full h-full">
+                          <span className="table-cell align-middle text-center text-[24px] font-normal text-[#000] leading-none font-['PlayfairDisplay-Bold']">Non disponibile</span>
+                        </div>
+                      </div>)}
                   <div className="block text-center text-black font-['FuturaBT-Light'] text-[0.88rem] leading-none min-h-[1.76rem] mt-auto">{getProductAttribute('profumo_per')}</div>
                   <ProductPrice
                       item={refinedProduct ?? item}

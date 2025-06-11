@@ -71,6 +71,7 @@ export const sampleProductNoImage: Product = {
     new_to_date: null,
     created_at: null,
     updated_at: null,
+    inStock: null ,
     price: {
       final: {
         amount: {
@@ -244,6 +245,7 @@ export const sampleProductDiscounted: Product = {
     new_to_date: null,
     created_at: null,
     updated_at: null,
+    inStock: null ,
     price: {
       final: {
         amount: {
@@ -417,6 +419,7 @@ export const sampleProductNotDiscounted: Product = {
     new_to_date: null,
     created_at: null,
     updated_at: null,
+    inStock: null ,
     price: {
       final: {
         amount: {
