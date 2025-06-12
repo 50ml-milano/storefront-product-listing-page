@@ -528,6 +528,9 @@ video {
   .bottom-\[0\] {
     bottom: 0;
   }
+  .left-0 {
+    left: 0px;
+  }
   .left-1\/2 {
     left: 50%;
   }
@@ -539,6 +542,9 @@ video {
   }
   .top-0 {
     top: 0px;
+  }
+  .z-10 {
+    z-index: 10;
   }
   .z-20 {
     z-index: 20;
@@ -652,6 +658,12 @@ video {
   }
   .inline-flex {
     display: inline-flex;
+  }
+  .table {
+    display: table;
+  }
+  .table-cell {
+    display: table-cell;
   }
   .grid {
     display: grid;
@@ -918,12 +930,19 @@ video {
     -moz-column-gap: 0.2rem;
          column-gap: 0.2rem;
   }
+  .gap-x-\[0\.5rem\] {
+    -moz-column-gap: 0.5rem;
+         column-gap: 0.5rem;
+  }
   .gap-x-md {
     -moz-column-gap: var(--spacing-md);
          column-gap: var(--spacing-md);
   }
   .gap-y-8 {
     row-gap: 2rem;
+  }
+  .gap-y-\[1\.25rem\] {
+    row-gap: 1.25rem;
   }
   .space-x-2 > :not([hidden]) ~ :not([hidden]) {
     --tw-space-x-reverse: 0;
@@ -1024,6 +1043,9 @@ video {
   .bg-\[\#904745\] {
     --tw-bg-opacity: 1;
     background-color: rgb(144 71 69 / var(--tw-bg-opacity));
+  }
+  .bg-\[rgba\(251\2c _247\2c _244\2c _0\.6\)\] {
+    background-color: rgba(251, 247, 244, 0.6);
   }
   .bg-black {
     --tw-bg-opacity: 1;
@@ -1265,6 +1287,9 @@ video {
   .text-center {
     text-align: center;
   }
+  .align-middle {
+    vertical-align: middle;
+  }
   .font-\[\'AvenirNextCyr-Medium\'\] {
     font-family: 'AvenirNextCyr-Medium';
   }
@@ -1302,6 +1327,9 @@ video {
   .text-\[1rem\] {
     font-size: 1rem;
   }
+  .text-\[25px\] {
+    font-size: 25px;
+  }
   .text-lg {
     font-size: var(--font-lg);
     line-height: var(--leading-normal);
@@ -1309,6 +1337,9 @@ video {
   .text-xs {
     font-size: var(--font-xs);
     line-height: var(--leading-none);
+  }
+  .font-bold {
+    font-weight: var(--font-bold);
   }
   .font-light {
     font-weight: var(--font-light);
@@ -1339,6 +1370,10 @@ video {
   }
   .\!text-primary {
     color: var(--color-primary) !important;
+  }
+  .text-\[\#000\] {
+    --tw-text-opacity: 1;
+    color: rgb(0 0 0 / var(--tw-text-opacity));
   }
   .text-\[\#131313\] {
     --tw-text-opacity: 1;
