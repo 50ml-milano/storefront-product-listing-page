@@ -12,7 +12,7 @@ import { useState } from 'preact/hooks';
 
 import '../ProductItem/ProductItem.css';
 
-import { useCart, useProducts, useStore } from '../../context';
+import {useCart, useProducts, useStore, useTranslation} from '../../context';
 import NoImage from '../../icons/NoImage.svg';
 import {
   Product,
@@ -55,6 +55,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   refineProduct,
   setError,
 }: ProductProps) => {
+  const translation = useTranslation();
   const { product, productView } = item;
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [selectedSwatch, setSelectedSwatch] = useState('');
@@ -258,6 +259,20 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           onMouseLeave={handleMouseOut}
       >
         <div class="pb-[3.1rem]">
+          {productView.inStock !== null && !productView.inStock && (
+              <div
+                  className="ds-sdk-product-item__product-out-of-stock absolute top-0 left-0 w-full h-full block z-10 bg-[rgba(251,_247,_244,_0.6)]">
+                <a
+                    href={productUrl as string}
+                    onClick={onProductClick}
+                    className="!text-primary"
+                >
+                  <div className="table w-full h-full">
+                    <span
+                        className="table-cell align-middle text-center text-[25px] font-bold text-[#000] leading-none font-['PlayfairDisplay-Bold']">{translation.ProductItem.outOfStock}</span>
+                  </div>
+                </a>
+              </div>)}
           <a
               href={productUrl as string}
               onClick={onProductClick}
@@ -316,9 +331,9 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
             </div>
           </a>
-          <div>
-            {isHovering  && (<GoButton onClick={handleGoProduct}/>)}
-          </div>
+          {productView.inStock !== null && productView.inStock && (<div>
+            {isHovering && (<GoButton onClick={handleGoProduct}/>)}
+          </div>)}
         </div>
       </div>
   );

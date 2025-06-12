@@ -79,5 +79,8 @@ export const de_DE = {
   },
   ProductsCounter:{
     title:"Sie haben {current} von {total} Produkten angesehen"
+  },
+  ProductItem:{
+    outOfStock:"Nicht verfügbar"
   }
 };
