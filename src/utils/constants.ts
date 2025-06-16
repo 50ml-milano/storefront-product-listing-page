@@ -20,7 +20,10 @@ export const PRODUCT_COLUMNS = {
 };
 
 export const SEARCH_SORT_DEFAULT: ProductSearchSortInput[] = [
-  { attribute: 'relevance', direction: 'DESC' },
+  { attribute: 'inStock', direction: 'DESC' },
+  { attribute: 'relevance', direction: 'DESC' }
+
+
 ];
 export const CATEGORY_SORT_DEFAULT: ProductSearchSortInput[] = [
   { attribute: 'position', direction: 'ASC' },
