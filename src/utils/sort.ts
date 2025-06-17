@@ -93,6 +93,7 @@ const generateGQLSortInput = (
   // sort options are in format attribute_direction
   const index = sortOption.lastIndexOf('_');
   return [
+    { attribute: 'inStock', direction: 'DESC' },
     {
       attribute: sortOption.substring(0, index),
       direction: sortOption.substring(index + 1) === 'ASC' ? 'ASC' : 'DESC',
