@@ -20,14 +20,11 @@ export const PRODUCT_COLUMNS = {
 };
 
 export const SEARCH_SORT_DEFAULT: ProductSearchSortInput[] = [
-  { attribute: 'inStock', direction: 'DESC' },
-  { attribute: 'relevance', direction: 'DESC' }
-
+  { attribute: 'relevance', direction: 'DESC' },
 
 ];
 export const CATEGORY_SORT_DEFAULT: ProductSearchSortInput[] = [
-  { attribute: 'inStock', direction: 'DESC' },
-  { attribute: 'position', direction: 'ASC' }
+  { attribute: 'position', direction: 'ASC' },
 ];
 
 export const SEARCH_UNIT_ID = 'livesearch-plp';
