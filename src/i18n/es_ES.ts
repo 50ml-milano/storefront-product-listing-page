@@ -7,8 +7,6 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-import {SliderDoubleControl} from "../components/SliderDoubleControl";
-
 export const es_ES = {
   Filter: {
     title: 'Filtros',
