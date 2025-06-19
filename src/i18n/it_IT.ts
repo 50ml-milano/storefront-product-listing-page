@@ -82,5 +82,9 @@ export const it_IT = {
   },
   ProductItem:{
     outOfStock:"Non disponibile"
+  },
+  SliderDoubleControl: {
+    between: "Tra",
+    and: 'e'
   }
 };

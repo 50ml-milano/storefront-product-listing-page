@@ -15,6 +15,7 @@ import '../SliderDoubleControl/SliderDoubleControl.css';
 import { useProducts, useSearch } from '../../context';
 import useSliderFacet from '../../hooks/useSliderFacet';
 import { PriceFacet } from '../../types/interface';
+import {useTranslation} from "../../context";
 
 export interface SliderProps extends HTMLAttributes<HTMLInputElement> {
   filterData: PriceFacet;
@@ -55,6 +56,7 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
   const toSliderId = `toSlider_${filterData.attribute}`;
   const fromInputId = `fromInput_${filterData.attribute}`;
   const toInputId = `toInput_${filterData.attribute}`;
+  const translation = useTranslation();
 
   useEffect(() => {
     if (
@@ -305,11 +307,11 @@ export const SliderDoubleControl: FunctionComponent<SliderProps> = ({
 
       <div className={`price-range-display__${filterData.attribute} pb-[1.5rem]`}>
         <span className="ml-sm block-display text-[0.875rem] font-light text-gray-700 font-['FuturaBT-Light']">
-          Between{' '}
+          {translation.SliderDoubleControl.between}{' '}
           <span className="min-price text-gray-900 font-semibold">
             {formatLabel(minVal)}
           </span>{' '}
-          and{' '}
+          {translation.SliderDoubleControl.and}{' '}
           <span className="max-price text-gray-900 font-semibold">
             {formatLabel(maxVal)}
           </span>
