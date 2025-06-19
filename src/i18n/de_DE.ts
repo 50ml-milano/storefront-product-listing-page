@@ -82,5 +82,9 @@ export const de_DE = {
   },
   ProductItem:{
     outOfStock:"Nicht verfügbar"
+  },
+  SliderDoubleControl: {
+    between: "Zwischen",
+    and: 'und'
   }
 };
