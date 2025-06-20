@@ -47,6 +47,7 @@ export const de_DE = {
     priceLabelAsc: 'Von den günstigsten',
     priceLabelDesc:'Von den teuersten',
     createdAtLabel:'Neuheit',
+    bestSellerLabel: 'Bestseller'
   },
   CategoryFilters: {
     results: 'Ergebnisse für {phrase}',
