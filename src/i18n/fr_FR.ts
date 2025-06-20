@@ -47,6 +47,7 @@ export const fr_FR = {
     priceLabelAsc: 'Prix croissant',
     priceLabelDesc:'Prix descendant',
     createdAtLabel:'Le plus récent en premier',
+    bestSellerLabel: 'Meilleure vente'
   },
   CategoryFilters: {
     results: 'résultats trouvés pour {phrase}',
