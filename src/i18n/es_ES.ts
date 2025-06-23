@@ -47,6 +47,7 @@ export const es_ES = {
     priceLabelAsc: 'Precio mas bajo',
     priceLabelDesc:'Precio mas alto',
     createdAtLabel:'Lo más nuevo primero',
+    bestSellerLabel: 'Mejor vendido'
   },
   CategoryFilters: {
     results: 'resultados de {phrase}',

@@ -58,6 +58,11 @@ const getSortOptionsfromMetadata = (
             label: `${e.label}`,
             value: `${e.attribute}_ASC`,
           });
+        } else if (e.attribute.includes('best_seller')) {
+          sortOptions.push({
+            label: translation.SortDropdown.bestSellerLabel,
+            value: `${e.attribute}`,
+          });
         } else {
           sortOptions.push({
             label: `${e.label}`,
