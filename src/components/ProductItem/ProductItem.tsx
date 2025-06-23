@@ -259,7 +259,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
           onMouseLeave={handleMouseOut}
       >
         <div class="pb-[3.1rem]">
-          {productView.inStock !== null && !productView.inStock && (
+          {!productView.inStock && (
               <div
                   className="ds-sdk-product-item__product-out-of-stock absolute top-0 left-0 w-full h-full block z-10 bg-[rgba(251,_247,_244,_0.6)]">
                 <a
@@ -331,7 +331,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
             </div>
           </a>
-          {productView.inStock !== null && productView.inStock && (<div>
+          {productView.inStock && (<div>
             {isHovering && (<GoButton onClick={handleGoProduct}/>)}
           </div>)}
         </div>
