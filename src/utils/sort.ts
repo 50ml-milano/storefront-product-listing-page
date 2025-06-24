@@ -55,7 +55,7 @@ const getSortOptionsfromMetadata = (
           });
         } else if (e.attribute.includes('name')) {
           sortOptions.push({
-            label: `${e.label}`,
+            label: translation.SortDropdown.productName,
             value: `${e.attribute}_ASC`,
           });
         } else if (e.attribute.includes('best_seller')) {
