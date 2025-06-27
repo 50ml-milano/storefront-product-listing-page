@@ -45,7 +45,7 @@ export const LabelledInput: FunctionComponent<LabelledInputProps> = ({
         }
         type={type}
         className={`ds-sdk-labelled-input__input focus:ring-0 h-md w-md border-0 cursor-pointer accent-[#904745] min-w-[16px] !bg-transparent !border-transparent focus:shadow-none ring-transparent ${
-          screenSize.mobile ? "before:left-[2rem]" : "text-[0.75rem] before:left-[10px]"}`
+          screenSize.mobile ? "before:left-[15px]" : "text-[0.75rem] before:left-0"}`
         }
         checked={checked}
         aria-checked={checked}

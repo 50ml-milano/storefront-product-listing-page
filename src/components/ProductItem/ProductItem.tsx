@@ -69,6 +69,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const {
     config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
   } = useStore();
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -254,7 +255,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
       <div
-          className="ds-sdk-product-item group relative flex flex-col max-w-sm justify-between border-[1px] border-transparent h-full hover:border-black p-2"
+          className={`ds-sdk-product-item group relative flex flex-col max-w-sm justify-between border-[1px] border-transparent h-full hover:border-black p-2 ${isFocused ? '!border-black outline outline-2 outline-blue-700 outline-offset-2' : ''}`}
           onMouseEnter={handleMouseOver}
           onMouseLeave={handleMouseOut}
       >
@@ -266,6 +267,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                     href={productUrl as string}
                     onClick={onProductClick}
                     className="!text-primary"
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
                 >
                   <div className="table w-full h-full">
                     <span
@@ -277,6 +280,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               href={productUrl as string}
               onClick={onProductClick}
               className="!text-primary"
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
           >
             <div className="ds-sdk-product-item__main relative flex flex-col justify-between h-full border-b-[0]">
               <div className="ds-sdk-product-item__image relative w-full h-auto rounded-md overflow-hidden aspect-[278/371] md:aspect-[395/527]">
@@ -332,7 +337,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
             </div>
           </a>
           {productView.inStock && (<div>
-            {isHovering && (<GoButton onClick={handleGoProduct}/>)}
+            {isHovering || isFocused && (<GoButton onClick={handleGoProduct}/>)}
           </div>)}
         </div>
       </div>
