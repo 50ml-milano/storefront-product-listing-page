@@ -1500,15 +1500,6 @@ video {
   .outline-1 {
     outline-width: 1px;
   }
-  .outline-2 {
-    outline-width: 2px;
-  }
-  .outline-offset-2 {
-    outline-offset: 2px;
-  }
-  .outline-blue-700 {
-    outline-color: #1d4ed8;
-  }
   .outline-gray-200 {
     outline-color: var(--color-gray-2);
   }
