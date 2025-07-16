@@ -798,6 +798,9 @@ video {
   .w-sm {
     width: var(--spacing-sm);
   }
+  .min-w-\[158px\] {
+    min-width: 158px;
+  }
   .min-w-\[160px\] {
     min-width: 160px;
   }
