@@ -798,6 +798,9 @@ video {
   .w-sm {
     width: var(--spacing-sm);
   }
+  .min-w-\[158px\] {
+    min-width: 158px;
+  }
   .min-w-\[160px\] {
     min-width: 160px;
   }
@@ -1499,15 +1502,6 @@ video {
   }
   .outline-1 {
     outline-width: 1px;
-  }
-  .outline-2 {
-    outline-width: 2px;
-  }
-  .outline-offset-2 {
-    outline-offset: 2px;
-  }
-  .outline-blue-700 {
-    outline-color: #1d4ed8;
   }
   .outline-gray-200 {
     outline-color: var(--color-gray-2);
