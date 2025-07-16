@@ -41,7 +41,7 @@ export const es_ES = {
     sortAttributeDESC: '{label}: De mayor a menor',
     sortASC: 'Price: De bajo a alto',
     sortDESC: 'Price: De mayor a menor',
-    productName: 'Nombre del producto',
+    productName: 'Nombre',
     productInStock: 'En stock',
     productLowStock: 'Stock bajo',
     priceLabelAsc: 'Precio mas bajo',
