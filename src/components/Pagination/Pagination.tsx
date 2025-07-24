@@ -63,7 +63,7 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
         <div>
           <div className='text-center text-[1rem]'>{counterTranslation}</div>
           <button
-              className='p-[0.63rem] w-full text-[1rem] border-[solid] border-[1px] border-black bg-black text-white uppercase avenir_medium hover:border-[#904547] hover:bg-[#904547]'
+              className="p-[0.63rem] w-full text-[1rem] border-[solid] border-[1px] border-black bg-black text-white uppercase font-['FuturaBT-Medium'] hover:border-[#904547] hover:bg-[#904547]"
               onClick={onNext}>{translation.ShowMoreButton.title}</button>
         </div>
     )}
