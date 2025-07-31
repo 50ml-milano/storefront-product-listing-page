@@ -47,6 +47,7 @@ export const en_US = {
     priceLabelAsc: 'Lowest price',
     priceLabelDesc:'Highest price',
     createdAtLabel:'Newest first',
+    bestSellerLabel: 'Bestseller'
   },
   CategoryFilters: {
     results: 'results for {phrase}',
@@ -82,5 +83,12 @@ export const en_US = {
   },
   ProductsCounter:{
     title:"{current} of {total} products"
+  },
+  ProductItem:{
+    outOfStock:"Out of stock"
+  },
+  SliderDoubleControl: {
+    between: "Entre",
+    and: 'et'
   }
 };
