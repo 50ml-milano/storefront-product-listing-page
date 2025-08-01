@@ -44,6 +44,7 @@ import {
   tr_TR,
   zh_Hans_CN,
   zh_Hant_TW,
+  pl_PL,
 } from '../i18n';
 import { useStore } from './store';
 
@@ -86,6 +87,7 @@ export const languages: Languages = {
   tr_TR,
   zh_Hans_CN,
   zh_Hant_TW,
+  pl_PL,
 };
 export const TranslationContext = createContext(languages.default);
 

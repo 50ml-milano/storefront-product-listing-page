@@ -37,6 +37,17 @@ export const en_GB = {
     option: 'Sort by',
     relevanceLabel: 'Most Relevant',
     positionLabel: 'Position',
+    sortAttributeASC: '{label}: Low to High',
+    sortAttributeDESC: '{label}: High to Low',
+    sortASC: 'Price: Low to High',
+    sortDESC: 'Price: High to Low',
+    productName: 'Product Name',
+    productInStock: 'In Stock',
+    productLowStock: 'Low Stock',
+    priceLabelAsc: 'Lowest price',
+    priceLabelDesc:'Highest price',
+    createdAtLabel:'Newest first',
+    bestSellerLabel: 'Bestseller'
   },
   CategoryFilters: {
     results: 'results for {phrase}',
@@ -58,10 +69,26 @@ export const en_GB = {
   SearchBar: {
     placeholder: 'Search...',
   },
+  ListView: {
+    viewDetails: 'View details',
+  },
+  GoButton:{
+    text:"Go"
+  },
   ShowMoreButton:{
     title:"Show more",
   },
+  PreviousButton:{
+    title:"Show previous page",
+  },
   ProductsCounter:{
     title:"{current} of {total} products"
+  },
+  ProductItem:{
+    outOfStock:"Out of stock"
+  },
+  SliderDoubleControl: {
+    between: "From ",
+    and: 'to'
   }
 };

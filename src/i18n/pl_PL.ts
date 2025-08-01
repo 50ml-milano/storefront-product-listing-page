@@ -7,23 +7,23 @@ accordance with the terms of the Adobe license agreement accompanying
 it.
 */
 
-export const en_US = {
+export const pl_PL = {
   Filter: {
-    title: 'Filters',
-    showTitle: 'Show filters',
-    hideTitle: 'Hide filters',
-    clearAll: 'Clear all',
-    apply: 'Apply',
+    title: 'Filtry',
+    showTitle: 'Pokaż filtry',
+    hideTitle: 'Ukryj filtry',
+    clearAll: 'Wyczyść wszystko',
+    apply: 'Stosować',
   },
   InputButtonGroup: {
-    title: 'Categories',
-    price: 'Price',
-    customPrice: 'Custom Price',
+    title: 'Kategorie',
+    price: 'Cena',
+    customPrice: 'Cena niestandardowa',
     priceIncluded: 'yes',
     priceExcluded: 'no',
     priceExcludedMessage: 'Not {title}',
     priceRange: ' and above',
-    showmore: 'Show more',
+    showmore: 'Pokaż więcej',
   },
   Loading: {
     title: 'Loading',

@@ -45,6 +45,7 @@ const widgetsLocales = [
   'tr_TR',
   'zh_Hans_CN',
   'zh_Hant_TW',
+  'pl_PL',
 ];
 
 //Locales Widgets does not support further info: https://wiki.corp.adobe.com/display/ACDS/Widgets+i18n+Translation

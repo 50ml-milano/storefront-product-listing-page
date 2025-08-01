@@ -69,6 +69,9 @@ export const it_IT = {
   SearchBar: {
     placeholder: 'Cerca...',
   },
+  ListView: {
+    viewDetails: 'View details',
+  },
   GoButton:{
     text:"Vai"
   },

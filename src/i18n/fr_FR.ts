@@ -69,6 +69,9 @@ export const fr_FR = {
   SearchBar: {
     placeholder: 'Rechercher…',
   },
+  ListView: {
+    viewDetails: 'View details',
+  },
   GoButton:{
     text:"Aller"
   },
