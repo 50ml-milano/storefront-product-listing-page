@@ -46,6 +46,7 @@ import { th_TH } from './th_TH';
 import { tr_TR } from './tr_TR';
 import { zh_Hans_CN } from './zh_Hans_CN';
 import { zh_Hant_TW } from './zh_Hant_TW';
+import { pl_PL } from './pl_PL';
 export {
   ar_AE,
   bg_BG,
@@ -86,4 +87,5 @@ export {
   tr_TR,
   zh_Hans_CN,
   zh_Hant_TW,
+  pl_PL,
 };
