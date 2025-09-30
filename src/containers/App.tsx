@@ -122,7 +122,7 @@ export const App: FunctionComponent = () => {
                       )}
                 </div>
                 <div className="flex w-full h-full">
-                  {screenSize.mobile ? (
+                  {screenSize.mobile && productsCtx.facets.length > 0 ? (
                       <ProductsHeader
                           facets={productsCtx.facets}
                           totalCount={productsCtx.totalCount}
