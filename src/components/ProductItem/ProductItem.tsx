@@ -70,6 +70,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
   } = useStore();
   const [isFocused, setIsFocused] = useState(false);
+  const { storeCode } = useStore();
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -104,7 +105,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   if (optimizeImages) {
     optimizedImageArray = generateOptimizedImages(
       productImageArray,
-      imageBaseWidth ?? 278
+      imageBaseWidth ?? 278,
+      storeCode
     );
   }
 

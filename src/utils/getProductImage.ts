@@ -65,9 +65,17 @@ const resolveImageUrl = (url: string, opts: ResolveImageUrlOptions): string => {
   return `${base}?${params.toString()}`;
 };
 
+const getBackgroundColor = (storeCode?: string): string => {
+  if (storeCode === 'mmataha') {
+    return '255,254,240';
+  }
+  return '255,255,255';
+};
+
 const generateOptimizedImages = (
   imageUrls: string[],
-  baseImageWidth: number
+  baseImageWidth: number,
+  storeCode?: string
 ): { src: string; srcset: any }[] => {
   const baseOptions = {
     fit: 'bounds',
@@ -75,6 +83,7 @@ const generateOptimizedImages = (
     height: 371,
   };
 
+  const bgColor = getBackgroundColor(storeCode);
   const imageUrlArray: Array<{ src: string; srcset: any }> = [];
 
   for (const imageUrl of imageUrls) {
@@ -90,7 +99,7 @@ const generateOptimizedImages = (
         optimize: 'medium',
         width: baseImageWidth * dpi,
         height: 371*dpi,
-        'bg-color':'255,255,255',
+        'bg-color': bgColor,
       })} ${dpi}x`;
     });
     imageUrlArray.push({ src, srcset });
