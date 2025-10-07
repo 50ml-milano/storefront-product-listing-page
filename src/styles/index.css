@@ -581,6 +581,9 @@ video {
   .mb-0\.5 {
     margin-bottom: 0.125rem;
   }
+  .mb-2 {
+    margin-bottom: 0.5rem;
+  }
   .mb-\[0\.5rem\] {
     margin-bottom: 0.5rem;
   }
@@ -1297,9 +1300,6 @@ video {
   .align-middle {
     vertical-align: middle;
   }
-  .font-\[\'AvenirNextCyr-Medium\'\] {
-    font-family: 'AvenirNextCyr-Medium';
-  }
   .font-\[\'FuturaBT-Light\'\] {
     font-family: 'FuturaBT-Light';
   }
@@ -1330,6 +1330,9 @@ video {
   }
   .text-\[15px\] {
     font-size: 15px;
+  }
+  .text-\[18px\] {
+    font-size: 18px;
   }
   .text-\[1rem\] {
     font-size: 1rem;
@@ -1368,6 +1371,9 @@ video {
   }
   .leading-\[1\.2\] {
     line-height: 1.2;
+  }
+  .leading-\[21px\] {
+    line-height: 21px;
   }
   .leading-none {
     line-height: var(--leading-none);
@@ -1658,11 +1664,6 @@ video {
   border-color: rgb(144 69 71 / var(--tw-border-opacity));
 }
 
-.hover\:border-\[\#f55d66\]:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(245 93 102 / var(--tw-border-opacity));
-}
-
 .hover\:border-black:hover {
   --tw-border-opacity: 1;
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
@@ -1680,11 +1681,6 @@ video {
 .hover\:bg-\[\#904745\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(144 71 69 / var(--tw-bg-opacity));
-}
-
-.hover\:bg-\[\#e3787d\]:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(227 120 125 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-gray-100:hover {
@@ -1859,9 +1855,21 @@ video {
   .md\:pr-2 {
     padding-right: 0.5rem;
   }
+
+  .md\:\!text-\[10px\] {
+    font-size: 10px !important;
+  }
+
+  .md\:\!text-\[15px\] {
+    font-size: 15px !important;
+  }
 }
 
 @media (min-width: 1024px) {
+  .lg\:\!mb-3 {
+    margin-bottom: 0.75rem !important;
+  }
+
   .lg\:\!ml-3 {
     margin-left: 0.75rem !important;
   }
@@ -1893,6 +1901,14 @@ video {
 
   .lg\:pr-3 {
     padding-right: 0.75rem;
+  }
+
+  .lg\:\!text-\[15px\] {
+    font-size: 15px !important;
+  }
+
+  .lg\:\!text-\[18px\] {
+    font-size: 18px !important;
   }
 }
 

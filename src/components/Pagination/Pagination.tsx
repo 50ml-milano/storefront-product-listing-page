@@ -48,12 +48,12 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
   const paginationTranslation = translation.ProductsCounter.title.replace('{current}', `${productsCtx.items.length}`);
   const counterTranslation=paginationTranslation.replace('{total}', `${productsCtx.totalCount}`);
 
-  return (<div className="block w-full">
+  return (<div className="block w-full font-['FuturaBT-Medium']">
     {isOnTop && currentPage > 1 && productsCtx.loadPrevPage!=0 && (
         <div>
-          <div className='text-center text-[1rem]'>{counterTranslation}</div>
+          <div className='text-center text-[15px] md:!text-[10px] lg:!text-[15px] leading-[21px] mb-2 '>{counterTranslation}</div>
           <button
-              className="p-[0.63rem] w-full text-[1rem] border-[solid] border-[1px] border-black bg-black text-white uppercase font-['AvenirNextCyr-Medium'] hover:border-[#f55d66] hover:bg-[#e3787d]"
+              className="p-[0.63rem] w-full text-[18px] md:!text-[15px] lg:!text-[18px] border-[solid] border-[1px] border-black bg-black text-white uppercase hover:border-[#904547] hover:bg-[#904547]"
               onClick={onPrevious}>{translation.PreviousButton.title}</button>
         </div>
     )}
@@ -61,9 +61,9 @@ export const Pagination: FunctionComponent<PaginationProps> = ({
 
     {!isOnTop && (productsCtx.items.length != productsCtx.totalCount) && productsCtx.loadNextPage <= totalPages && (
         <div>
-          <div className='text-center text-[1rem]'>{counterTranslation}</div>
+          <div className='text-center text-[15px] md:!text-[10px] lg:!text-[15px] leading-[21px] mb-2 lg:!mb-3'>{counterTranslation}</div>
           <button
-              className="p-[0.63rem] w-full text-[1rem] border-[solid] border-[1px] border-black bg-black text-white uppercase font-['FuturaBT-Medium'] hover:border-[#904547] hover:bg-[#904547]"
+              className="p-[0.63rem] w-full text-[18px] md:!text-[15px] lg:!text-[18px] border-[solid] border-[1px] border-black bg-black text-white uppercase hover:border-[#904547] hover:bg-[#904547]"
               onClick={onNext}>{translation.ShowMoreButton.title}</button>
         </div>
     )}
