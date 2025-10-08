@@ -305,11 +305,11 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
               <div className="flex flex-row justify-center flex-1">
                 <div className="flex flex-col">
-                  <div class="leading-none text-[0.88rem] min-h-[0.88rem] uppercase text-black font-['FuturaBT-Light'] text-center pt-[3px]">{getProductAttribute('manufacturer')}</div>
-                  <div className="ds-sdk-product-item__product-name text-black capitalize leading-[1.2] tracking-[0.5px] pt-1.5 font-normal text-[1.188rem] font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666] mb-[5px]">
+                  <div class="ds-sdk-product-item__product-manufacturer uppercase text-black font-['FuturaBT-Light']">{getProductAttribute('manufacturer')}</div>
+                  <div className="ds-sdk-product-item__product-name text-black capitalize font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
-                  <div className="block text-center text-black font-['FuturaBT-Light'] text-[0.88rem] leading-none min-h-[1.76rem] mt-auto">{getProductAttribute('profumo_per')}</div>
+                  <div className="ds-sdk-product-item__product-profumo block text-center text-black font-['FuturaBT-Light'] mt-auto">{getProductAttribute('profumo_per')}</div>
                   <ProductPrice
                       item={refinedProduct ?? item}
                       isBundle={isBundle}
