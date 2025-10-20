@@ -1,14 +1,7 @@
 .go-button.text{
-    width: 100%;
-    display: block;
-    color: #fff;
-    font-size: 1.15rem;
-    font-weight: 500;
     letter-spacing: 0.5px;
-    text-transform: uppercase;
-    font-family: 'AvenirNextCyr-Medium';
-    text-align: center;
+    font-family: 'FuturaBT-Medium';
     padding: 8px 15px 6px;
     margin: 5px 0 0;
-    position: relative;
+    @apply text-[0.8125rem] lg:text-[1.125rem] text-white w-full block text-center relative uppercase font-medium;
 }

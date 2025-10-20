@@ -64,24 +64,24 @@
 
 .livesearch-plp .ds-widgets {
   .ds-sdk-product-item__product-manufacturer {
-    @apply flex justify-center items-center text-center text-[0.625rem] leading-3 min-h-6 mt-[10px] mb-[6px];
-    @apply lg:text-[0.9375rem] lg:leading-[1rem] lg:min-h-8 md:mt-[2px] lg:mt-[9px] md:mb-[3px] lg:mb-0;
+    @apply flex justify-center items-center text-center text-[0.8125rem] leading-[15px] min-h-[30px] mt-[10px] mb-[6px];
+    @apply md:text-[0.625rem] md:leading-[11px] md:min-h-[22px] lg:text-[0.9375rem] lg:leading-[1rem] lg:min-h-8 md:mt-[2px] lg:mt-[9px] md:mb-[3px] lg:mb-0;
   }
 
   .ds-sdk-product-item__product-name {
-    @apply md:mb-[3px] lg:mb-0 leading-[1.2] font-normal text-[0.75rem] md:text-[0.8125rem] md:leading-[0.875rem] lg:text-[1.25rem] lg:leading-[1.5rem];
+    @apply md:mb-[3px] lg:mb-0 leading-[1.25rem] font-normal text-[1.125rem] md:text-[0.8125rem] md:leading-[0.875rem] lg:text-[1.25rem] lg:leading-[1.5rem];
   }
 
   .ds-sdk-product-item__product-profumo {
-    @apply flex mt-[1px] justify-center items-center text-[0.625rem] leading-[0.9375rem] md:leading-[0.875rem] lg:text-[0.9375rem] lg:leading-none min-h-[1.5rem];
+    @apply flex mt-[1px] justify-center items-center text-[0.8125rem] leading-[0.9375rem] md:text-[0.625rem] md:leading-[0.875rem] lg:text-[0.9375rem] lg:leading-none min-h-[1.875rem];
   }
 
   .ds-sdk-product-price {
-    @apply pt-[11px] text-[0.75rem];
+    @apply pt-[11px] text-[0.9375rem];
 
     span.price-text,
     span.line-through.text {
-      @apply text-[0.75rem] leading-[0.9375rem] md:leading-[0.875rem] lg:text-[1.125rem] lg:leading-[1.5rem];
+      @apply text-[0.9375rem] leading-none md:text-[0.625rem] md:leading-[0.875rem] lg:text-[1.125rem] lg:leading-[1.5rem];
     }
   }
 }
