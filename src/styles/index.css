@@ -1355,10 +1355,6 @@ video {
     --tw-text-opacity: 1;
     color: rgb(0 0 0 / var(--tw-text-opacity));
   }
-  .text-\[\#131313\] {
-    --tw-text-opacity: 1;
-    color: rgb(19 19 19 / var(--tw-text-opacity));
-  }
   .text-\[\#171513\] {
     --tw-text-opacity: 1;
     color: rgb(23 21 19 / var(--tw-text-opacity));
@@ -1661,6 +1657,10 @@ video {
 
 .hover\:bg-transparent:hover {
   background-color: transparent;
+}
+
+.hover\:font-semibold:hover {
+  font-weight: var(--font-semibold);
 }
 
 .hover\:text-\[\#666666\]:hover {
