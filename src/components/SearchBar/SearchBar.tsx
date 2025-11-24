@@ -29,7 +29,7 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
         type="text"
         value={phrase}
         onKeyPress={onKeyPress}
-        className="border border-black text-[15px] p-[11px] block-display rounded-[15px] w-full mb-[15px] h-[40px] ds-sdk-search-bar__input font-['FuturaBT-Medium'] "
+        className="border border-black text-[16px] p-[11px] block-display rounded-[15px] w-full mb-[15px] h-[40px] ds-sdk-search-bar__input font-['FuturaBT-Medium'] "
         placeholder={placeholder}
         autocomplete="off"
       />
