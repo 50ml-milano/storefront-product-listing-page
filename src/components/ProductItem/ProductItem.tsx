@@ -73,11 +73,15 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { storeCode } = useStore();
 
   const handleMouseOver = () => {
-    setIsHovering(true);
+      if (!window.matchMedia('(hover: none)').matches) {
+          setIsHovering(true);
+      }
   };
 
   const handleMouseOut = () => {
-    setIsHovering(false);
+      if (!window.matchMedia('(hover: none)').matches) {
+          setIsHovering(true);
+      }
   };
 
   const handleSelection = async (optionIds: string[], sku: string) => {
