@@ -261,7 +261,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
 
   return (
       <div
-          className={`ds-sdk-product-item group relative flex flex-col max-w-sm justify-between border-[1px] border-transparent h-full hover:border-black p-2 ${isFocused ? '!border-black' : ''}`}
+          className={`ds-sdk-product-item group relative flex flex-col max-w-sm justify-between border-[1px] border-transparent h-full hover:border-black p-2 ${isFocused ? '!border-black in-focus' : ''}`}
           onMouseEnter={handleMouseOver}
           onMouseLeave={handleMouseOut}
       >
@@ -341,8 +341,8 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               </div>
             </div>
           </a>
-          {productView.inStock && (<div>
-            {(isHovering || isFocused) && (<GoButton onClick={handleGoProduct}/>)}
+          {productView.inStock && (<div class="go-btn-wrapper">
+            {(<GoButton onClick={handleGoProduct}/>)}
           </div>)}
         </div>
       </div>

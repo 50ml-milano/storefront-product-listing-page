@@ -62,6 +62,31 @@
   padding: 0;
 }
 
+.go-btn-wrapper {
+    .go-button {
+        @apply bg-transparent;
+
+        &.text {
+            @apply text-transparent;
+        }
+    }
+}
+
+.ds-sdk-product-item {
+    &.in-focus,
+    &:hover {
+        .go-btn-wrapper {
+            .go-button {
+                @apply bg-black hover:bg-[#904745] hover:border-t-[solid_1px_#f55d66];
+
+                &.text {
+                    @apply text-white;
+                }
+            }
+        }
+    }
+}
+
 .livesearch-plp .ds-widgets {
   .ds-sdk-product-item__product-manufacturer {
     @apply flex justify-center items-center text-center text-[0.8125rem] leading-[15px] min-h-[30px] mt-[10px] mb-[6px];
