@@ -105,8 +105,14 @@ export const ProductPriceRange: FunctionComponent<ProductPriceRangeProps> = ({
                     {originalPrice}
                 </span>;
             } else {
-                return <span
-                    class="price-text"> {getProductPrice(item, currencySymbol, currencyRate, false, true)}</span>;
+                return <>
+                    <span class={`price-text ${discount ? 'text-bold' : ''}`}> {getProductPrice(item, currencySymbol, currencyRate, false, true)}</span>
+                    {discount && (
+                        <span class="line-through text inline-block">
+                            {getProductPrice(item, currencySymbol, currencyRate, false, false)}
+                        </span>
+                    )}
+                </>;
             }
         }
         return '';
