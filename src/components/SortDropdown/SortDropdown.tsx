@@ -118,14 +118,10 @@ export const SortDropdown: FunctionComponent<SortDropdownProps> = ({
                 }`}
               >
                 <a
-                  className={`ds-sdk-sort-dropdown__items--item block-display px-md text-[0.875rem] font-['FuturaBT-Light'] text-white
-                   mb-0 no-underline active:no-underline focus:no-underline hover:no-underline hover:text-gray-900
-              ${option.value === selectedOption?.value && isMobile
-                  ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-[#131313]'
-                  : 'font-normal text-[#131313]'}
-              ${option.value === selectedOption?.value && !isMobile
-                      ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold text-white'
-                      : 'font-normal text-[#131313]'}`}
+                  className={`ds-sdk-sort-dropdown__items--item block-display px-md text-[0.875rem] text-white
+                   mb-0 no-underline active:no-underline focus:no-underline hover:no-underline font-['FuturaBT-Light'] font-normal hover:font-semibold
+                   ${option.value === selectedOption?.value ? 'ds-sdk-sort-dropdown__items--item-selected font-semibold' : ''}`
+                }
                   onClick={() => select(option.value)}
                 >{option.value === selectedOption?.value
                       ? (!isMobile?'':'\u2713 ') +option.label
