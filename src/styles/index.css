@@ -1636,10 +1636,6 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
-.hover\:border-t-\[solid_1px_\#f55d66\]:hover {
-  border-top-color: solid 1px #f55d66;
-}
-
 .hover\:bg-\[\#904547\]:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(144 69 71 / var(--tw-bg-opacity));

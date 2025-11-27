@@ -64,7 +64,7 @@
 
 .go-btn-wrapper {
     .go-button {
-        @apply bg-transparent;
+        @apply !bg-transparent;
 
         &.text {
             @apply text-transparent;
@@ -77,7 +77,7 @@
     &:hover {
         .go-btn-wrapper {
             .go-button {
-                @apply bg-black hover:bg-[#904745] hover:border-t-[solid_1px_#f55d66];
+                @apply !bg-black hover:!bg-[#904745];
 
                 &.text {
                     @apply text-white;
