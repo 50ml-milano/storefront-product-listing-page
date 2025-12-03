@@ -277,7 +277,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
                 >
                   <div className="table w-full h-full">
                     <span
-                        className="table-cell align-middle text-center text-[25px] font-bold text-[#000] leading-none font-['PlayfairDisplay-Bold']">{translation.ProductItem.outOfStock}</span>
+                        className="table-cell align-middle text-center text-[25px] font-bold text-[#000] leading-none font-['PlayfairDisplay']">{translation.ProductItem.outOfStock}</span>
                   </div>
                 </a>
               </div>)}
@@ -310,7 +310,7 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
               <div className="flex flex-row justify-center flex-1">
                 <div className="flex flex-col">
                   <div class="ds-sdk-product-item__product-manufacturer uppercase text-black font-['FuturaBT-Light']">{getProductAttribute('manufacturer')}</div>
-                  <div className="ds-sdk-product-item__product-name text-black capitalize font-['PlayfairDisplay-Bold'] text-center hover:text-[#666666]">
+                  <div className="ds-sdk-product-item__product-name text-black capitalize font-['PlayfairDisplay'] font-bold text-center hover:text-[#666666]">
                     {product.name !== null && htmlStringDecode(product.name)}
                   </div>
                   <div className="ds-sdk-product-item__product-profumo block text-center text-black font-['FuturaBT-Light'] mt-auto">{getProductAttribute('profumo_per')}</div>

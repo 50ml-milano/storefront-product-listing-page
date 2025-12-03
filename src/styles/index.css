@@ -1282,8 +1282,8 @@ video {
   .font-\[\'FuturaBT-Medium\'\] {
     font-family: 'FuturaBT-Medium';
   }
-  .font-\[\'PlayfairDisplay-Bold\'\] {
-    font-family: 'PlayfairDisplay-Bold';
+  .font-\[\'PlayfairDisplay\'\] {
+    font-family: 'PlayfairDisplay';
   }
   .text-2xl {
     font-size: var(--font-2xl);
