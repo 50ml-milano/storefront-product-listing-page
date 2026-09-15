@@ -28,7 +28,32 @@ export interface ClientProps {
   xRequestId?: string;
 }
 
+/**
+ * One capacity that counts as a sample, as Magento and Catalog Service each need it spelled.
+ *
+ * `label` is what `productSearch` filters a capacity by, `uid` is what `variants` selects a variant
+ * by, and `id` is Magento's own option id, which the parent's product page reads from the query
+ * string to pre-select the size.
+ */
+export interface SampleListingOption {
+  id: number;
+  label: string;
+  uid: string;
+}
+
+/**
+ * Present only on a category flagged as the sample listing. Samples are not visible individually,
+ * so they are absent from the catalog index as products of their own: the listing searches for
+ * their parents by capacity and draws each tile from the matching variant instead.
+ */
+export interface SampleListingConfig {
+  attributeCode: string;
+  urlSuffix: string;
+  options: SampleListingOption[];
+}
+
 export interface StoreDetailsConfig {
+  sampleListing?: SampleListingConfig;
   allowAllProducts?: string | boolean;
   perPageConfig?: { pageSizeOptions?: string; defaultPageSizeOption?: string };
   minQueryLength?: string | number; // string if used on magento, number if used on data-service-graphql

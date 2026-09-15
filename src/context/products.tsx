@@ -31,6 +31,10 @@ import {
   getValueFromUrl,
   handleUrlPagination,
 } from '../utils/handleUrlFilters';
+import {
+  applySampleListing,
+  sampleListingFilter,
+} from '../utils/sampleListing';
 import { useAttributeMetadata } from './attributeMetadata';
 import { useSearch } from './search';
 import { useStore } from './store';
@@ -183,6 +187,7 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     return storeCtx?.config?.minQueryLength || DEFAULT_MIN_QUERY_LENGTH;
   }, [storeCtx?.config.minQueryLength]);
   const categoryPath = storeCtx.config?.currentCategoryUrlPath;
+  const sampleListing = storeCtx.config?.sampleListing;
 
   const viewTypeFromUrl = getValueFromUrl('view_type');
   const [viewType, setViewType] = useState<string>(
@@ -297,6 +302,8 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
           filter: filters,
           categorySearch: !!categoryPath,
         });
+        // Redraws each tile from its 2 ml variant. A no-op on every ordinary category.
+        await applySampleListing(data, storeCtx);
         setLoadNextPage(currentPage + 1);
         setLoadPrevPage(currentPage - 1);
         prevFiltersCount.current=searchCtx.filters.length;
@@ -418,15 +425,24 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
     filters: FacetFilter[]
   ) => {
     if (categoryPath) {
-      //add category filter
-      const categoryFilter = {
-        attribute: 'categoryPath',
-        eq: categoryPath,
-      };
-      filters.push(categoryFilter);
+      // The sample listing stands in for the category: a sample is a variant, and no category can
+      // contain one, so the page asks for the parents by the capacity that makes them samples.
+      filters.push(
+        sampleListing
+          ? sampleListingFilter(sampleListing)
+          : {
+              attribute: 'categoryPath',
+              eq: categoryPath,
+            }
+      );
 
       //add default category sort
-      if (variables.sort.length < 1 || variables.sort === SEARCH_SORT_DEFAULT) {
+      // `position` is a product's place inside a category, which the samples have none of, so the
+      // sample listing keeps the default order rather than sorting by nothing.
+      if (
+        !sampleListing &&
+        (variables.sort.length < 1 || variables.sort === SEARCH_SORT_DEFAULT)
+      ) {
         variables.sort = CATEGORY_SORT_DEFAULT;
       }
     }
