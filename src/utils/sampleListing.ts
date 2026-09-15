@@ -8,7 +8,9 @@ import {
   FacetFilter,
   Money,
   Product,
+  ProductMedia,
   ProductPrice,
+  ProductViewMedia,
   SampleListingConfig,
 } from '../types/interface';
 
@@ -75,10 +77,63 @@ const priceRangeFrom = (
 };
 
 /**
- * Redraws one tile from its sample variant, leaving images and attributes as the parent's.
+ * One role out of a variant's media, in the shape the non-`productView` half of a tile expects.
  *
- * Sharing the parent's imagery is deliberate: a sample's own photo is usually the same bottle, and
- * keeping it means the listing sits visually alongside the rest of the catalogue.
+ * Falls back to the first image rather than to nothing: a sample photographed once carries the
+ * `image` role alone, and a tile with no picture is worse than a tile with the wrong-sized one.
+ */
+const mediaForRole = (
+  images: ProductViewMedia[],
+  role: ProductViewMedia['roles'][number]
+): ProductMedia | null => {
+  const media =
+    images.find((image) => image.roles?.includes(role)) ?? images[0];
+
+  if (!media) {
+    return null;
+  }
+
+  return {
+    url: media.url,
+    label: media.label,
+    position: media.position,
+    disabled: media.disabled,
+  };
+};
+
+/**
+ * The sample's own photography, or the parent's when the sample has none.
+ *
+ * A 2 ml sample is photographed as its own object — a vial, not a smaller copy of the bottle — so
+ * its media is what the tile should show. Both halves of the tile have to be rewritten together:
+ * the carousel reads `productView.images`, while the single image every listing actually renders
+ * comes from `product.small_image`.
+ */
+const sampleMedia = (
+  variant: SampleVariant,
+  item: Product
+): Pick<Product['product'], 'image' | 'small_image' | 'thumbnail'> & {
+  images: ProductViewMedia[] | null;
+} => {
+  if (!variant.images.length) {
+    return {
+      images: item.productView.images,
+      image: item.product.image,
+      small_image: item.product.small_image,
+      thumbnail: item.product.thumbnail,
+    };
+  }
+
+  return {
+    images: variant.images,
+    image: mediaForRole(variant.images, 'image'),
+    small_image: mediaForRole(variant.images, 'small_image'),
+    thumbnail: mediaForRole(variant.images, 'thumbnail'),
+  };
+};
+
+/**
+ * Redraws one tile from its sample variant, leaving attributes as the parent's.
  */
 const applySampleVariant = (
   item: Product,
@@ -100,12 +155,16 @@ const applySampleVariant = (
     variant,
     item.product.price_range.minimum_price
   );
+  const media = sampleMedia(variant, item);
 
   return {
     ...item,
     product: {
       ...item.product,
       name: variant.name ?? item.product.name,
+      image: media.image,
+      small_image: media.small_image,
+      thumbnail: media.thumbnail,
       canonical_url: sampleProductUrl(
         item.productView?.urlKey ?? null,
         optionId,
@@ -121,6 +180,7 @@ const applySampleVariant = (
     productView: {
       ...item.productView,
       name: variant.name ?? item.productView.name,
+      images: media.images,
       inStock: (variant.inStock ?? item.productView.inStock) as any,
       price: {
         final: { adjustments: null, amount: final } as any,

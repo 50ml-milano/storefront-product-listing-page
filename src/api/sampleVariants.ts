@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   ClientProps,
   Money,
+  ProductViewMedia,
   QueryContextInput,
   SampleListingConfig,
 } from '../types/interface';
@@ -17,6 +18,7 @@ export interface SampleVariant {
   inStock: boolean | null;
   final: Money | null;
   regular: Money | null;
+  images: ProductViewMedia[];
   optionUid: string;
 }
 
@@ -33,6 +35,11 @@ const VARIANT_FIELDS = `
             sku
             name
             inStock
+            images {
+                label
+                url
+                roles
+            }
             ... on SimpleProductView {
                 price {
                     final { amount { value currency } }
@@ -104,6 +111,7 @@ const pickVariant = (
     sku: match.product.sku,
     name: match.product.name ?? null,
     inStock: match.product.inStock ?? null,
+    images: match.product.images ?? [],
     final: match.product.price?.final?.amount ?? null,
     regular: match.product.price?.regular?.amount ?? null,
   };
