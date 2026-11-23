@@ -51,11 +51,20 @@ const VARIANT_FIELDS = `
 `;
 
 /**
- * One request for the whole page, using a GraphQL alias per parent.
+ * The most parents one request asks for.
+ *
+ * Catalog Service rejects a query past its token limit with a 400 «token limit reached»: on the live
+ * it_it store 130 aliased `variants` fields pass and 135 fail. 100 leaves room for a longer sku or
+ * an extra field, and keeps the largest page size (180) to two requests.
+ */
+const BATCH_SIZE = 100;
+
+/**
+ * One request for a batch of parents, using a GraphQL alias per parent.
  *
  * Catalog Service has no "give me the variants of these products" field — `variants` takes a single
- * sku. Aliasing keeps that to one round trip instead of one per tile, which is the difference
- * between a listing that renders and one that does not.
+ * sku. Aliasing keeps that to one round trip per batch instead of one per tile, which is the
+ * difference between a listing that renders and one that does not.
  */
 const buildSampleVariantsQuery = (
   skus: string[],
@@ -117,11 +126,18 @@ const pickVariant = (
   };
 };
 
+const chunk = <T>(items: T[], size: number): T[][] =>
+  Array.from({ length: Math.ceil(items.length / size) }, (_, index) =>
+    items.slice(index * size, (index + 1) * size)
+  );
+
 /**
  * The sample variant of every parent on the page, keyed by the parent's sku.
  *
- * Parents with no matching variant are simply absent from the map — the caller leaves those tiles
- * showing the parent, which is a worse tile but still a working one.
+ * Three outcomes per parent, and the caller treats them differently:
+ * - a `SampleVariant`: the parent has a sample;
+ * - `null`: Catalog Service answered for the parent and it has no sample;
+ * - absent: its batch failed, so nothing is known about it.
  */
 const getSampleVariants = async ({
   environmentId,
@@ -134,7 +150,7 @@ const getSampleVariants = async ({
   skus,
   sampleListing,
 }: SampleVariantsQuery & ClientProps): Promise<
-  Record<string, SampleVariant>
+  Record<string, SampleVariant | null>
 > => {
   const optionUids = sampleListing.options.map((option) => option.uid);
 
@@ -142,34 +158,61 @@ const getSampleVariants = async ({
     return {};
   }
 
-  const { query, variables } = buildSampleVariantsQuery(skus, optionUids);
+  const fetchBatch = async (
+    batch: string[]
+  ): Promise<Record<string, SampleVariant | null>> => {
+    const { query, variables } = buildSampleVariantsQuery(batch, optionUids);
 
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Magento-Environment-Id': environmentId,
-      'Magento-Website-Code': websiteCode,
-      'Magento-Store-Code': storeCode,
-      'Magento-Store-View-Code': storeViewCode,
-      'X-Api-Key': apiKey,
-      'X-Request-Id': uuidv4(),
-      'Content-Type': 'application/json',
-      'Magento-Customer-Group': context?.customerGroup ?? '',
-    },
-    body: JSON.stringify({ query, variables }),
-  });
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Magento-Environment-Id': environmentId,
+        'Magento-Website-Code': websiteCode,
+        'Magento-Store-Code': storeCode,
+        'Magento-Store-View-Code': storeViewCode,
+        'X-Api-Key': apiKey,
+        'X-Request-Id': uuidv4(),
+        'Content-Type': 'application/json',
+        'Magento-Customer-Group': context?.customerGroup ?? '',
+      },
+      body: JSON.stringify({ query, variables }),
+    });
 
-  const results = await response.json();
+    const results = await response.json().catch(() => null);
 
-  const variants: Record<string, SampleVariant> = {};
-  skus.forEach((sku, index) => {
-    const variant = pickVariant(results?.data?.[`v${index}`], optionUids);
-    if (variant) {
-      variants[sku] = variant;
+    if (!response.ok || !results?.data) {
+      throw new Error(
+        `variants request failed (${response.status}): ${JSON.stringify(
+          results?.errors ?? null
+        )}`
+      );
     }
-  });
 
-  return variants;
+    const variants: Record<string, SampleVariant | null> = {};
+    batch.forEach((sku, index) => {
+      const result = results.data[`v${index}`];
+      // A field that errored on its own comes back as null: unknown, not "no sample".
+      if (result) {
+        variants[sku] = pickVariant(result, optionUids);
+      }
+    });
+
+    return variants;
+  };
+
+  const batches = await Promise.allSettled(
+    chunk(skus, BATCH_SIZE).map(fetchBatch)
+  );
+
+  return batches.reduce<Record<string, SampleVariant | null>>((all, batch) => {
+    if (batch.status === 'fulfilled') {
+      return { ...all, ...batch.value };
+    }
+    // The parents of this batch stay as they are; the rest of the page still gets its samples.
+    // eslint-disable-next-line no-console
+    console.error('sample listing: could not resolve variants', batch.reason);
+    return all;
+  }, {});
 };
 
 export { getSampleVariants };
