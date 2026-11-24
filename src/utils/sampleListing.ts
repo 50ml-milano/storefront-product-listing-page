@@ -54,27 +54,22 @@ const sampleProductUrl = (
 };
 
 /**
- * The sample's own price, falling back to the parent's cheapest.
+ * The sample's own price, as both ends of the range.
  *
- * Both ends of the range are built from this, so the tile always shows one price rather than the
- * parent's "from 8 to 185". The fallback matters when a sample is in the catalog but its price is
- * not: the cheapest variant of a perfume is the sample, so the low end of the parent's range is
- * the closest thing to the truth, and far closer than the high end.
+ * Both ends are built from it, so the tile always shows one price rather than the parent's "from 8
+ * to 185". Only called for a sample that has a price: one without is dropped from the listing,
+ * since the parent's price on a 2 ml tile (170 € for `MTP-0-1373`) is worse than no tile.
  */
 const priceRangeFrom = (
-  variant: SampleVariant,
+  final: Money,
+  regular: Money,
   cheapest: ProductPrice
-): ProductPrice => {
-  const final: Money | null = variant.final ?? variant.regular;
-  const regular: Money | null = variant.regular ?? variant.final;
-
-  return {
-    ...cheapest,
-    regular_price: regular ?? cheapest.regular_price,
-    final_price: final ?? cheapest.final_price,
-    discount: null,
-  };
-};
+): ProductPrice => ({
+  ...cheapest,
+  regular_price: regular,
+  final_price: final,
+  discount: null,
+});
 
 /**
  * One role out of a variant's media, in the shape the non-`productView` half of a tile expects.
@@ -134,25 +129,35 @@ const sampleMedia = (
 
 /**
  * Redraws one tile from its sample variant, leaving attributes as the parent's.
+ *
+ * `undefined` (the lookup for this parent failed) keeps the parent's tile as it is. `null` (the
+ * parent has no sample) and a sample without a price drop the tile: a sample listing showing a
+ * full-size bottle at the bottle's price is wrong, while a missing tile is merely absent.
  */
 const applySampleVariant = (
   item: Product,
-  variant: SampleVariant | undefined,
+  variant: SampleVariant | null | undefined,
   sampleListing: SampleListingConfig,
   baseUrl: string | undefined
-): Product => {
-  if (!variant) {
+): Product | null => {
+  if (variant === undefined) {
     return item;
+  }
+
+  const final = variant?.final ?? variant?.regular;
+  const regular = variant?.regular ?? variant?.final;
+
+  if (!variant || !final || !regular) {
+    return null;
   }
 
   const optionId = sampleListing.options.find(
     (option) => option.uid === variant.optionUid
   )?.id;
 
-  const final = variant.final ?? variant.regular;
-  const regular = variant.regular ?? variant.final;
   const samplePrice = priceRangeFrom(
-    variant,
+    final,
+    regular,
     item.product.price_range.minimum_price
   );
   const media = sampleMedia(variant, item);
@@ -193,9 +198,11 @@ const applySampleVariant = (
 /**
  * Replaces the page of results with the sample variant of each parent, in place.
  *
- * Does nothing at all unless the category is flagged as the sample listing, and leaves any parent
- * whose variant did not come back exactly as it was, so a gap in the catalog thins the listing
- * rather than breaking it.
+ * Does nothing at all unless the category is flagged as the sample listing. A parent with no
+ * priced sample is removed, so a gap in the catalog thins the listing rather than putting a bottle
+ * on it; a parent whose lookup failed is left as it was, so an outage does not empty the page.
+ * `total_count` is left as Live Search gave it: the removed parents are a handful (about 15 of
+ * ~3 500 on it_it), so a page may show a tile or two fewer than its size.
  */
 const applySampleListing = async (
   data: any,
@@ -219,14 +226,16 @@ const applySampleListing = async (
       sampleListing,
     });
 
-    data.productSearch.items = items.map((item) =>
-      applySampleVariant(
-        item,
-        variants[item.productView?.sku ?? item.product?.sku],
-        sampleListing,
-        storeCtx.config?.baseUrl
+    data.productSearch.items = items
+      .map((item) =>
+        applySampleVariant(
+          item,
+          variants[item.productView?.sku ?? item.product?.sku],
+          sampleListing,
+          storeCtx.config?.baseUrl
+        )
       )
-    );
+      .filter((item): item is Product => item !== null);
   } catch (error) {
     // The parents are already on screen; a failed variant lookup must not empty the page.
     // eslint-disable-next-line no-console
