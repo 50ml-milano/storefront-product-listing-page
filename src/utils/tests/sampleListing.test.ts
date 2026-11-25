@@ -237,7 +237,7 @@ describe('applySampleListing', () => {
   });
 
   it("names the tile after its parent and the sample size, not the sample's own product name", async () => {
-    // Since May 2026 a 2 ml sample is named after the tester it is decanted from, as in Danea.
+    // Since May 2026 a 2 ml sample is named after the tester it is decanted from, as in the ERP.
     const tester = sampleOf('P000');
     tester.variants[0].product.name = 'P000 Eau de Parfum TESTER 75 ml';
     mockCatalog(sampleFor({ P000: tester }));
