@@ -2,7 +2,9 @@
 50ml customisation — not part of the upstream Adobe widget.
 */
 
-import { applySampleListing } from '../sampleListing';
+import { it_IT } from '../../i18n/it_IT';
+import { applySampleListing, sortCategoryPath } from '../sampleListing';
+import { getSortOptionsfromMetadata } from '../sort';
 
 const SAMPLE_UID = 'Y29uZmlndXJhYmxlLzEzMjkvMzQ0NTI=';
 const FULL_SIZE_UID = 'Y29uZmlndXJhYmxlLzEzMjkvMTIzNDU=';
@@ -74,8 +76,19 @@ const sampleOf = (sku: string, price: number | null = 8): any => ({
   ],
 });
 
+const facet = (attribute: string): any => ({
+  attribute,
+  title: attribute,
+  type: 'PINNED',
+  buckets: [{ title: 'x', count: 1, __typename: 'ScalarBucket' }],
+});
+
 const pageOf = (skus: string[]): any => ({
-  productSearch: { total_count: skus.length, items: skus.map(parent) },
+  productSearch: {
+    total_count: skus.length,
+    items: skus.map(parent),
+    facets: [facet('capacity'), facet('manufacturer')],
+  },
 });
 
 const skusOf = (n: number) =>
@@ -293,5 +306,48 @@ describe('applySampleListing', () => {
     expect(data.productSearch.items[0].product.small_image.url).toBe(
       'P000-bottle.jpg'
     );
+    expect(data.productSearch.facets.map((f: any) => f.attribute)).toEqual([
+      'capacity',
+      'manufacturer',
+    ]);
+  });
+
+  it('hides the capacity filter, which every sample shares', async () => {
+    mockCatalog(sampleFor());
+    const data = pageOf(skusOf(3));
+
+    await applySampleListing(data, storeCtx);
+
+    expect(data.productSearch.facets.map((f: any) => f.attribute)).toEqual([
+      'manufacturer',
+    ]);
+  });
+});
+
+describe('sorting the sample listing', () => {
+  const sortable: any[] = [
+    { attribute: 'price', label: 'Price', numeric: true },
+    { attribute: 'name', label: 'Name', numeric: false },
+  ];
+  const optionsFor = (config: any) =>
+    getSortOptionsfromMetadata(it_IT, sortable, '1', sortCategoryPath(config));
+
+  it('offers relevance, which it sorts by, instead of the position samples do not have', () => {
+    const values = optionsFor({
+      currentCategoryUrlPath: 'fragranze/tipo/campioncini-profumi',
+      sampleListing: storeCtx.config.sampleListing,
+    }).map((option) => option.value);
+
+    expect(values).toContain('relevance_DESC');
+    expect(values).not.toContain('position_ASC');
+  });
+
+  it('keeps position on an ordinary category', () => {
+    const values = optionsFor({ currentCategoryUrlPath: 'fragranze' }).map(
+      (option) => option.value
+    );
+
+    expect(values).toContain('position_ASC');
+    expect(values).not.toContain('relevance_DESC');
   });
 });
