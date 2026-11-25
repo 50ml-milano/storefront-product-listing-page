@@ -36,6 +36,10 @@ const sampleListingFilter = (
  * Built from the store's own base url rather than the product's `canonical_url`, because the
  * indexed url carries whichever host the catalog was exported from, and it is the parent's page we
  * want in every case — the sample has no page of its own.
+ *
+ * The size goes in the fragment (`#1329=34452`), which the product page reads just as it reads
+ * `?capacity=34452`. Crawlers drop a fragment, so the links count for the parent's canonical url
+ * and add no parameter urls to crawl. Without the attribute id it links to the plain parent page.
  */
 const sampleProductUrl = (
   urlKey: string | null,
@@ -44,13 +48,13 @@ const sampleProductUrl = (
   baseUrl: string | undefined,
   fallback: string | null
 ): string | null => {
-  if (!urlKey || !baseUrl || !optionId) {
+  if (!urlKey || !baseUrl || !optionId || !sampleListing.attributeId) {
     return fallback;
   }
 
   const base = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
 
-  return `${base}${urlKey}${sampleListing.urlSuffix}?${sampleListing.attributeCode}=${optionId}`;
+  return `${base}${urlKey}${sampleListing.urlSuffix}#${sampleListing.attributeId}=${optionId}`;
 };
 
 /**
