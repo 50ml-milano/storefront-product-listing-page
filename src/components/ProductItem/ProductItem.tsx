@@ -67,7 +67,13 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
   const { addToCartGraphQL, refreshCart } = useCart();
   const { viewType } = useProducts();
   const {
-    config: { optimizeImages, imageBaseWidth, imageCarousel, listview },
+    config: {
+      optimizeImages,
+      imageBaseWidth,
+      imageCarousel,
+      listview,
+      sampleListing,
+    },
   } = useStore();
   const [isFocused, setIsFocused] = useState(false);
   const { storeCode } = useStore();
@@ -137,9 +143,12 @@ export const ProductItem: FunctionComponent<ProductProps> = ({
     );
   };
 
-  const productUrl = setRoute
-    ? setRoute({ sku: productView?.sku, urlKey: productView?.urlKey })
-    : product?.canonical_url;
+  // 50ml: a sample tile's url carries the capacity that makes it a sample, and a host-supplied
+  // route is handed nothing but sku and urlKey — so in that mode the generated url has to win.
+  const productUrl =
+    setRoute && !sampleListing
+      ? setRoute({ sku: productView?.sku, urlKey: productView?.urlKey })
+      : product?.canonical_url;
 
   const handleGoProduct = async () => {
     setError(false);
