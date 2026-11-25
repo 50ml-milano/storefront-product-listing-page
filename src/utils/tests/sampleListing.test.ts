@@ -18,6 +18,7 @@ const storeCtx: any = {
     baseUrl: 'https://50-ml.it/',
     sampleListing: {
       attributeCode: 'capacity',
+      attributeId: 1329,
       urlSuffix: '',
       options: [{ id: 34452, label: '2 ml', uid: SAMPLE_UID }],
     },
@@ -207,7 +208,23 @@ describe('applySampleListing', () => {
     await applySampleListing(data, storeCtx);
 
     expect(data.productSearch.items[0].product.canonical_url).toBe(
-      'https://50-ml.it/p000?capacity=34452'
+      'https://50-ml.it/p000#1329=34452'
+    );
+  });
+
+  it('links to the plain parent page when the attribute id is missing', async () => {
+    mockCatalog(sampleFor());
+    const data = pageOf(['P000']);
+    const { attributeId, ...withoutId } = storeCtx.config.sampleListing;
+
+    await applySampleListing(data, {
+      ...storeCtx,
+      config: { ...storeCtx.config, sampleListing: withoutId },
+    });
+
+    expect(attributeId).toBe(1329);
+    expect(data.productSearch.items[0].product.canonical_url).toBe(
+      'https://50-ml.it/p000'
     );
   });
 

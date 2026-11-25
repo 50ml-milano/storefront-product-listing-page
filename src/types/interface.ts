@@ -32,8 +32,8 @@ export interface ClientProps {
  * One capacity that counts as a sample, as Magento and Catalog Service each need it spelled.
  *
  * `label` is what `productSearch` filters a capacity by, `uid` is what `variants` selects a variant
- * by, and `id` is Magento's own option id, which the parent's product page reads from the query
- * string to pre-select the size.
+ * by, and `id` is Magento's own option id, which the parent's product page reads from the url
+ * fragment to pre-select the size.
  */
 export interface SampleListingOption {
   id: number;
@@ -48,6 +48,8 @@ export interface SampleListingOption {
  */
 export interface SampleListingConfig {
   attributeCode: string;
+  /** The capacity attribute's id: the key of the `#{attributeId}={optionId}` fragment. */
+  attributeId?: number;
   urlSuffix: string;
   options: SampleListingOption[];
 }
