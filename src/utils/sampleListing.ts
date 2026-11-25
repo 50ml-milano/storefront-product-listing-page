@@ -286,11 +286,12 @@ const applySampleListing = async (
  *
  * The sample listing is a category page, but its query is a search by capacity and sorts by
  * relevance: `position` is a product's place inside a category, which samples have none of. With
- * no category the control offers relevance and selects it, matching the order on the page.
+ * no category the control offers relevance and selects it, matching the order on the page, and
+ * the query gets no `position` default.
  */
-const sortCategoryPath = (
-  config: Partial<StoreDetailsConfig> | undefined
+const categoryPathForSort = (
+  config: StoreDetailsConfig | undefined
 ): string | undefined =>
   config?.sampleListing ? undefined : config?.currentCategoryUrlPath;
 
-export { applySampleListing, sampleListingFilter, sortCategoryPath };
+export { applySampleListing, sampleListingFilter, categoryPathForSort };

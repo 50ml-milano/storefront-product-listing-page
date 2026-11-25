@@ -3,7 +3,7 @@
 */
 
 import { it_IT } from '../../i18n/it_IT';
-import { applySampleListing, sortCategoryPath } from '../sampleListing';
+import { applySampleListing, categoryPathForSort } from '../sampleListing';
 import { getSortOptionsfromMetadata } from '../sort';
 
 const SAMPLE_UID = 'Y29uZmlndXJhYmxlLzEzMjkvMzQ0NTI=';
@@ -330,7 +330,12 @@ describe('sorting the sample listing', () => {
     { attribute: 'name', label: 'Name', numeric: false },
   ];
   const optionsFor = (config: any) =>
-    getSortOptionsfromMetadata(it_IT, sortable, '1', sortCategoryPath(config));
+    getSortOptionsfromMetadata(
+      it_IT,
+      sortable,
+      '1',
+      categoryPathForSort(config)
+    );
 
   it('offers relevance, which it sorts by, instead of the position samples do not have', () => {
     const values = optionsFor({

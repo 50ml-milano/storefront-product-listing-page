@@ -33,6 +33,7 @@ import {
 } from '../utils/handleUrlFilters';
 import {
   applySampleListing,
+  categoryPathForSort,
   sampleListingFilter,
 } from '../utils/sampleListing';
 import { useAttributeMetadata } from './attributeMetadata';
@@ -437,10 +438,9 @@ const ProductsContextProvider = ({ children }: WithChildrenProps) => {
       );
 
       //add default category sort
-      // `position` is a product's place inside a category, which the samples have none of, so the
-      // sample listing keeps the default order rather than sorting by nothing.
+      // 50ml: not on the sample listing, which keeps relevance (see categoryPathForSort).
       if (
-        !sampleListing &&
+        categoryPathForSort(storeCtx.config) &&
         (variables.sort.length < 1 || variables.sort === SEARCH_SORT_DEFAULT)
       ) {
         variables.sort = CATEGORY_SORT_DEFAULT;
