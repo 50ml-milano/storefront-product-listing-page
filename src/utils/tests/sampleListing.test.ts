@@ -28,7 +28,7 @@ const storeCtx: any = {
 const parent = (sku: string): any => ({
   product: {
     sku,
-    name: `${sku} 100 ml`,
+    name: `${sku} Eau de Parfum`,
     canonical_url: `https://50-ml.it/${sku.toLowerCase()}`,
     image: null,
     small_image: { url: `${sku}-bottle.jpg` },
@@ -47,7 +47,7 @@ const parent = (sku: string): any => ({
   productView: {
     sku,
     urlKey: sku.toLowerCase(),
-    name: `${sku} 100 ml`,
+    name: `${sku} Eau de Parfum`,
     images: [],
     inStock: true,
   },
@@ -234,6 +234,20 @@ describe('applySampleListing', () => {
     );
     expect(consoleError).toHaveBeenCalled();
     consoleError.mockRestore();
+  });
+
+  it("names the tile after its parent and the sample size, not the sample's own product name", async () => {
+    // Since May 2026 a 2 ml sample is named after the tester it is decanted from, as in the ERP.
+    const tester = sampleOf('P000');
+    tester.variants[0].product.name = 'P000 Eau de Parfum TESTER 75 ml';
+    mockCatalog(sampleFor({ P000: tester }));
+    const data = pageOf(['P000']);
+
+    await applySampleListing(data, storeCtx);
+
+    const [tile] = data.productSearch.items;
+    expect(tile.product.name).toBe('P000 Eau de Parfum 2 ml');
+    expect(tile.productView.name).toBe('P000 Eau de Parfum 2 ml');
   });
 
   it('links the tile to the parent page with the sample selected', async () => {

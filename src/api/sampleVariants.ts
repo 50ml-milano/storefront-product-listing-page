@@ -14,7 +14,6 @@ import {
 
 export interface SampleVariant {
   sku: string;
-  name: string | null;
   inStock: boolean | null;
   final: Money | null;
   regular: Money | null;
@@ -33,7 +32,6 @@ const VARIANT_FIELDS = `
         selections
         product {
             sku
-            name
             inStock
             images {
                 label
@@ -118,7 +116,6 @@ const pickVariant = (
   return {
     optionUid: matchedUid,
     sku: match.product.sku,
-    name: match.product.name ?? null,
     inStock: match.product.inStock ?? null,
     images: match.product.images ?? [],
     final: match.product.price?.final?.amount ?? null,
