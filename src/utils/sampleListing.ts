@@ -224,29 +224,30 @@ const applySampleListing = async (
     .map((item) => item.productView?.sku ?? item.product?.sku)
     .filter((sku): sku is string => !!sku);
 
-  try {
-    const variants = await getSampleVariants({
-      ...storeCtx,
-      skus,
-      sampleListing,
-    });
+  // Never rejects: a failed request leaves its parents out of the result, and they are dropped.
+  const variants = await getSampleVariants({
+    ...storeCtx,
+    skus,
+    sampleListing,
+  });
 
-    data.productSearch.items = items
-      .map((item) =>
-        applySampleVariant(
+  data.productSearch.items = items
+    .map((item) => {
+      try {
+        return applySampleVariant(
           item,
           variants[item.productView?.sku ?? item.product?.sku],
           sampleListing,
           storeCtx.config?.baseUrl
-        )
-      )
-      .filter((item): item is Product => item !== null);
-  } catch (error) {
-    // No sample could be drawn, so no tile can be: bottles at bottle prices would be worse.
-    data.productSearch.items = [];
-    // eslint-disable-next-line no-console
-    console.error('sample listing: could not resolve variants', error);
-  }
+        );
+      } catch (error) {
+        // A malformed tile is dropped on its own rather than failing the whole page.
+        // eslint-disable-next-line no-console
+        console.error('sample listing: could not redraw a tile', error);
+        return null;
+      }
+    })
+    .filter((item): item is Product => item !== null);
 };
 
 export { applySampleListing, sampleListingFilter };

@@ -220,16 +220,18 @@ describe('applySampleListing', () => {
     );
   });
 
-  it('shows no bottles when the tiles cannot be redrawn at all', async () => {
+  it('drops a tile that cannot be redrawn and keeps the others', async () => {
     mockCatalog(sampleFor());
     const data = pageOf(skusOf(3));
-    // A tile Live Search sent without its `product` half cannot be redrawn: the page errors out.
+    // A tile Live Search sent without its `product` half cannot be redrawn.
     delete data.productSearch.items[1].product;
     const consoleError = jest.spyOn(console, 'error').mockImplementation();
 
     await applySampleListing(data, storeCtx);
 
-    expect(data.productSearch.items).toEqual([]);
+    expect(data.productSearch.items.map((i: any) => i.productView.sku)).toEqual(
+      ['P000', 'P002']
+    );
     expect(consoleError).toHaveBeenCalled();
     consoleError.mockRestore();
   });
