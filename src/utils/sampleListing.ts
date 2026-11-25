@@ -137,6 +137,23 @@ const sampleMedia = (
 };
 
 /**
+ * The tile's name: the parent's name followed by the sample size, e.g. "Amsterdam Red Eau de Parfum 2 ml".
+ *
+ * Not the sample's own product name. Since May 2026 new samples are named after the tester bottle
+ * they are decanted from ("… TESTER 75 ml"), matching the ERP, on the understanding that customers
+ * never see a variant's name; samples created before keep "… 2 ml". The listing is the one page
+ * that shows samples as products, so it builds the name itself and both read the same.
+ */
+const sampleName = (
+  parentName: string | null | undefined,
+  sizeLabel: string | undefined,
+  variantName: string | null | undefined
+): string | null | undefined =>
+  parentName && sizeLabel
+    ? `${parentName} ${sizeLabel}`
+    : variantName ?? parentName;
+
+/**
  * Redraws one tile from its sample variant, leaving attributes as the parent's.
  *
  * Drops the tile when there is no priced sample to draw it from: `undefined` (the lookup for this
@@ -156,9 +173,9 @@ const applySampleVariant = (
     return null;
   }
 
-  const optionId = sampleListing.options.find(
-    (option) => option.uid === variant.optionUid
-  )?.id;
+  const option = sampleListing.options.find(
+    (candidate) => candidate.uid === variant.optionUid
+  );
 
   const samplePrice = priceRangeFrom(
     final,
@@ -171,13 +188,13 @@ const applySampleVariant = (
     ...item,
     product: {
       ...item.product,
-      name: variant.name ?? item.product.name,
+      name: sampleName(item.product.name, option?.label, variant.name),
       image: media.image,
       small_image: media.small_image,
       thumbnail: media.thumbnail,
       canonical_url: sampleProductUrl(
         item.productView?.urlKey ?? null,
-        optionId,
+        option?.id,
         sampleListing,
         baseUrl,
         item.product.canonical_url
@@ -189,7 +206,7 @@ const applySampleVariant = (
     },
     productView: {
       ...item.productView,
-      name: variant.name ?? item.productView.name,
+      name: sampleName(item.productView.name, option?.label, variant.name),
       images: media.images,
       inStock: (variant.inStock ?? item.productView.inStock) as any,
       price: {
