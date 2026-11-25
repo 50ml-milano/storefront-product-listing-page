@@ -134,10 +134,10 @@ const chunk = <T>(items: T[], size: number): T[][] =>
 /**
  * The sample variant of every parent on the page, keyed by the parent's sku.
  *
- * Three outcomes per parent, and the caller treats them differently:
+ * Three outcomes per parent; the caller draws a tile only from the first and drops the others:
  * - a `SampleVariant`: the parent has a sample;
  * - `null`: Catalog Service answered for the parent and it has no sample;
- * - absent: its batch failed, so nothing is known about it.
+ * - absent: its lookup failed (its batch, or its own field), so nothing is known about it.
  */
 const getSampleVariants = async ({
   environmentId,
@@ -191,7 +191,7 @@ const getSampleVariants = async ({
     const variants: Record<string, SampleVariant | null> = {};
     batch.forEach((sku, index) => {
       const result = results.data[`v${index}`];
-      // A field that errored on its own comes back as null: unknown, not "no sample".
+      // A field that errored on its own comes back as null: unknown, so left out like a failed batch.
       if (result) {
         variants[sku] = pickVariant(result, optionUids);
       }
@@ -208,7 +208,7 @@ const getSampleVariants = async ({
     if (batch.status === 'fulfilled') {
       return { ...all, ...batch.value };
     }
-    // The parents of this batch stay as they are; the rest of the page still gets its samples.
+    // The parents of this batch get no sample, so their tiles are dropped; the rest still get theirs.
     // eslint-disable-next-line no-console
     console.error('sample listing: could not resolve variants', batch.reason);
     return all;

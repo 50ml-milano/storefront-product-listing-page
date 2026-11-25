@@ -178,7 +178,7 @@ describe('applySampleListing', () => {
     );
   });
 
-  it('leaves the parents of a failed request as they were and still applies the other batch', async () => {
+  it('drops the parents of a failed request instead of showing their bottles, and still applies the other batch', async () => {
     const skus = skusOf(150);
     mockCatalog((variables) =>
       Object.values(variables).includes('P000')
@@ -194,9 +194,44 @@ describe('applySampleListing', () => {
     await applySampleListing(data, storeCtx);
 
     const items = data.productSearch.items;
-    expect(items).toHaveLength(150);
-    expect(items[0].product.small_image.url).toBe('P000-bottle.jpg');
-    expect(items[149].product.small_image.url).toBe('P149-vial.jpg');
+    // P000–P099 rode the failed request: none of them may stay as a bottle at the bottle's price.
+    expect(items.map((i: any) => i.productView.sku)).toEqual(skus.slice(100));
+    items.forEach((item: any) =>
+      expect(item.product.small_image.url).toMatch(/-vial\.jpg$/)
+    );
+    expect(consoleError).toHaveBeenCalled();
+    consoleError.mockRestore();
+  });
+
+  it('drops a parent whose own lookup errored while the rest of its request answered', async () => {
+    mockCatalog((variables) => {
+      const answered = sampleFor()(variables);
+      // GraphQL nulls an alias that failed on its own and reports it under `errors`.
+      answered.body.data.v1 = null;
+      answered.body.errors = [{ message: 'internal error', path: ['v1'] }];
+      return answered;
+    });
+    const data = pageOf(skusOf(3));
+
+    await applySampleListing(data, storeCtx);
+
+    expect(data.productSearch.items.map((i: any) => i.productView.sku)).toEqual(
+      ['P000', 'P002']
+    );
+  });
+
+  it('drops a tile that cannot be redrawn and keeps the others', async () => {
+    mockCatalog(sampleFor());
+    const data = pageOf(skusOf(3));
+    // A tile Live Search sent without its `product` half cannot be redrawn.
+    delete data.productSearch.items[1].product;
+    const consoleError = jest.spyOn(console, 'error').mockImplementation();
+
+    await applySampleListing(data, storeCtx);
+
+    expect(data.productSearch.items.map((i: any) => i.productView.sku)).toEqual(
+      ['P000', 'P002']
+    );
     expect(consoleError).toHaveBeenCalled();
     consoleError.mockRestore();
   });
@@ -212,9 +247,12 @@ describe('applySampleListing', () => {
     );
   });
 
-  it('links to the plain parent page when the attribute id is missing', async () => {
+  it("links to the plain parent page on the store's own host when the attribute id is missing", async () => {
     mockCatalog(sampleFor());
     const data = pageOf(['P000']);
+    // The indexed url carries the host the catalog was exported from, not this store's.
+    data.productSearch.items[0].product.canonical_url =
+      'https://www.50-ml.com/p000';
     const { attributeId, ...withoutId } = storeCtx.config.sampleListing;
 
     await applySampleListing(data, {

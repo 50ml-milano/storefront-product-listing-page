@@ -48,13 +48,18 @@ const sampleProductUrl = (
   baseUrl: string | undefined,
   fallback: string | null
 ): string | null => {
-  if (!urlKey || !baseUrl || !optionId || !sampleListing.attributeId) {
+  if (!urlKey || !baseUrl) {
     return fallback;
   }
 
   const base = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+  const page = `${base}${urlKey}${sampleListing.urlSuffix}`;
 
-  return `${base}${urlKey}${sampleListing.urlSuffix}#${sampleListing.attributeId}=${optionId}`;
+  if (!optionId || !sampleListing.attributeId) {
+    return page;
+  }
+
+  return `${page}#${sampleListing.attributeId}=${optionId}`;
 };
 
 /**
@@ -134,9 +139,9 @@ const sampleMedia = (
 /**
  * Redraws one tile from its sample variant, leaving attributes as the parent's.
  *
- * `undefined` (the lookup for this parent failed) keeps the parent's tile as it is. `null` (the
- * parent has no sample) and a sample without a price drop the tile: a sample listing showing a
- * full-size bottle at the bottle's price is wrong, while a missing tile is merely absent.
+ * Drops the tile when there is no priced sample to draw it from: `undefined` (the lookup for this
+ * parent failed), `null` (the parent has no sample) or a sample without a price. A sample listing
+ * showing a full-size bottle at the bottle's price is wrong, while a missing tile is merely absent.
  */
 const applySampleVariant = (
   item: Product,
@@ -144,10 +149,6 @@ const applySampleVariant = (
   sampleListing: SampleListingConfig,
   baseUrl: string | undefined
 ): Product | null => {
-  if (variant === undefined) {
-    return item;
-  }
-
   const final = variant?.final ?? variant?.regular;
   const regular = variant?.regular ?? variant?.final;
 
@@ -203,8 +204,8 @@ const applySampleVariant = (
  * Replaces the page of results with the sample variant of each parent, in place.
  *
  * Does nothing at all unless the category is flagged as the sample listing. A parent with no
- * priced sample is removed, so a gap in the catalog thins the listing rather than putting a bottle
- * on it; a parent whose lookup failed is left as it was, so an outage does not empty the page.
+ * priced sample, or whose lookup failed, is removed, so a gap in the catalog or an outage thins
+ * the listing rather than putting a bottle on it at the bottle's price.
  * `total_count` is left as Live Search gave it: the removed parents are a handful (about 15 of
  * ~3 500 on it_it), so a page may show a tile or two fewer than its size.
  */
@@ -223,28 +224,30 @@ const applySampleListing = async (
     .map((item) => item.productView?.sku ?? item.product?.sku)
     .filter((sku): sku is string => !!sku);
 
-  try {
-    const variants = await getSampleVariants({
-      ...storeCtx,
-      skus,
-      sampleListing,
-    });
+  // Never rejects: a failed request leaves its parents out of the result, and they are dropped.
+  const variants = await getSampleVariants({
+    ...storeCtx,
+    skus,
+    sampleListing,
+  });
 
-    data.productSearch.items = items
-      .map((item) =>
-        applySampleVariant(
+  data.productSearch.items = items
+    .map((item) => {
+      try {
+        return applySampleVariant(
           item,
           variants[item.productView?.sku ?? item.product?.sku],
           sampleListing,
           storeCtx.config?.baseUrl
-        )
-      )
-      .filter((item): item is Product => item !== null);
-  } catch (error) {
-    // The parents are already on screen; a failed variant lookup must not empty the page.
-    // eslint-disable-next-line no-console
-    console.error('sample listing: could not resolve variants', error);
-  }
+        );
+      } catch (error) {
+        // A malformed tile is dropped on its own rather than failing the whole page.
+        // eslint-disable-next-line no-console
+        console.error('sample listing: could not redraw a tile', error);
+        return null;
+      }
+    })
+    .filter((item): item is Product => item !== null);
 };
 
 export { applySampleListing, sampleListingFilter };
