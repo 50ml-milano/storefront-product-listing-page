@@ -208,7 +208,7 @@ const getSampleVariants = async ({
     if (batch.status === 'fulfilled') {
       return { ...all, ...batch.value };
     }
-    // The parents of this batch stay as they are; the rest of the page still gets its samples.
+    // The parents of this batch get no sample, so their tiles are dropped; the rest still get theirs.
     // eslint-disable-next-line no-console
     console.error('sample listing: could not resolve variants', batch.reason);
     return all;
