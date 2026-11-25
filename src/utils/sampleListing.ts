@@ -5,6 +5,7 @@
 import { getSampleVariants, SampleVariant } from '../api/sampleVariants';
 import { StoreDetailsProps } from '../context/store';
 import {
+  Facet,
   FacetFilter,
   Money,
   Product,
@@ -12,6 +13,7 @@ import {
   ProductPrice,
   ProductViewMedia,
   SampleListingConfig,
+  StoreDetailsConfig,
 } from '../types/interface';
 
 /**
@@ -217,7 +219,8 @@ const applySampleVariant = (
 };
 
 /**
- * Replaces the page of results with the sample variant of each parent, in place.
+ * Replaces the page of results with the sample variant of each parent, in place, and drops the
+ * capacity filter.
  *
  * Does nothing at all unless the category is flagged as the sample listing. A parent with no
  * priced sample, or whose lookup failed, is removed, so a gap in the catalog or an outage thins
@@ -232,7 +235,19 @@ const applySampleListing = async (
   const sampleListing = storeCtx.config?.sampleListing;
   const items: Product[] = data?.productSearch?.items ?? [];
 
-  if (!sampleListing?.options?.length || !items.length) {
+  if (!sampleListing?.options?.length) {
+    return;
+  }
+
+  // Every sample is the same size, so a capacity filter has only the parents' bottle sizes to
+  // offer, and picking one would narrow the samples by a bottle the customer is not buying.
+  if (data?.productSearch?.facets) {
+    data.productSearch.facets = data.productSearch.facets.filter(
+      (facet: Facet) => facet.attribute !== sampleListing.attributeCode
+    );
+  }
+
+  if (!items.length) {
     return;
   }
 
@@ -266,4 +281,17 @@ const applySampleListing = async (
     .filter((item): item is Product => item !== null);
 };
 
-export { applySampleListing, sampleListingFilter };
+/**
+ * The category the sort control works in, or none on the sample listing.
+ *
+ * The sample listing is a category page, but its query is a search by capacity and sorts by
+ * relevance: `position` is a product's place inside a category, which samples have none of. With
+ * no category the control offers relevance and selects it, matching the order on the page, and
+ * the query gets no `position` default.
+ */
+const categoryPathForSort = (
+  config: StoreDetailsConfig | undefined
+): string | undefined =>
+  config?.sampleListing ? undefined : config?.currentCategoryUrlPath;
+
+export { applySampleListing, sampleListingFilter, categoryPathForSort };

@@ -24,6 +24,7 @@ import {
 } from '../context';
 import { Facet } from '../types/interface';
 import { getValueFromUrl, handleUrlSort } from '../utils/handleUrlFilters';
+import { categoryPathForSort } from '../utils/sampleListing';
 import {
   defaultSortOptions,
   generateGQLSortInput,
@@ -65,7 +66,8 @@ export const ProductsHeader: FunctionComponent<Props> = ({
         translation,
         attributeMetadata?.sortable,
         storeCtx?.config?.displayOutOfStock,
-        storeCtx?.config?.currentCategoryUrlPath
+        // 50ml: the sample listing sorts as a search does, with no position to offer.
+        categoryPathForSort(storeCtx?.config)
       )
     );
   }, [storeCtx, translation, attributeMetadata]);
@@ -74,7 +76,8 @@ export const ProductsHeader: FunctionComponent<Props> = ({
     getSortOptions();
   }, [getSortOptions]);
 
-  const defaultSortOption = storeCtx.config?.currentCategoryUrlPath
+  // 50ml: relevance, not position, is preselected on the sample listing.
+  const defaultSortOption = categoryPathForSort(storeCtx.config)
     ? 'position_ASC'
     : 'relevance_DESC';
   const sortFromUrl = getValueFromUrl('product_list_order');
